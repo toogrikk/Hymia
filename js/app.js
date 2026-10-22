@@ -4,21 +4,48 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Initialize Visualizers
+  // 1. Safe DOM References
+  const periodicGrid = document.getElementById('periodic-table-grid');
+  const modal = document.getElementById('element-modal');
+  const closeInspectorBtn = document.getElementById('close-inspector-btn');
+  const inspectorBackdrop = document.getElementById('inspector-backdrop');
+  const sendToBondBtn = document.getElementById('send-to-bond-btn');
+  const trendBanner = document.getElementById('trend-banner');
+  const trendBannerText = document.getElementById('trend-banner-text');
+  const trendButtons = document.querySelectorAll('.trend-btn');
+  const searchInput = document.getElementById('element-search');
+  const categoryFilter = document.getElementById('category-filter');
+  const select1 = document.getElementById('atom1-select');
+  const select2 = document.getElementById('atom2-select');
+  const animateBondBtn = document.getElementById('animate-bond-btn');
+  const presetBtns = document.querySelectorAll('.preset-btn');
+
+  let currentInspectedElement = ELEMENTS_DATA[0]; // Default: Hydrogen
+  let currentTrend = 'none';
+
+  // 2. Initialize Visualizers & Engines
   const heroVisualizer = new HeroAtomVisualizer('hero-atom-canvas');
   const bohrVisualizer = new BohrVisualizer('bohr-canvas');
   const bondSimulator = new BondSimulator('bond-canvas');
   const chemikusAI = new ChemikusAI('chat-messages', 'chat-input', 'chat-form');
   const chemQuiz = new ChemQuiz();
 
-  // Selected element for inspector
-  let currentInspectedElement = ELEMENTS_DATA[0]; // Hydrogen default
-  let currentTrend = 'none';
+  // 3. Helper: Category Translation
+  function getCategoryNameUk(cat) {
+    const dict = {
+      'alkali': 'Лужний метал',
+      'alkaline-earth': 'Лужноземельний метал',
+      'transition': 'Перехідний метал',
+      'post-transition': 'Постперехідний метал',
+      'metalloid': 'Напівметал',
+      'nonmetal': 'Реактивний неметал',
+      'halogen': 'Галоген',
+      'noble': 'Благородний (інертний) газ'
+    };
+    return dict[cat] || cat;
+  }
 
-  // 2. Populate Periodic Table Grid
-  const periodicGrid = document.getElementById('periodic-table-grid');
-  renderPeriodicTable(ELEMENTS_DATA);
-
+  // 4. Render Periodic Table Grid
   function renderPeriodicTable(elements) {
     if (!periodicGrid) return;
     periodicGrid.innerHTML = '';
@@ -57,43 +84,56 @@ document.addEventListener('DOMContentLoaded', () => {
     applyTrendVisualization(currentTrend);
   }
 
-  // 3. Element Inspector Modal
-  const modal = document.getElementById('element-modal');
-  const closeInspectorBtn = document.getElementById('close-inspector-btn');
-  const inspectorBackdrop = document.getElementById('inspector-backdrop');
-  const sendToBondBtn = document.getElementById('send-to-bond-btn');
-
+  // 5. Element Inspector Modal
   function openElementInspector(el) {
     currentInspectedElement = el;
 
-    document.getElementById('info-atomic-number').textContent = el.number;
-    document.getElementById('info-symbol').textContent = el.symbol;
-    document.getElementById('info-name').textContent = el.name;
-    document.getElementById('info-category').textContent = getCategoryNameUk(el.category);
-    document.getElementById('info-mass').textContent = el.mass;
-    document.getElementById('info-en').textContent = el.en > 0 ? el.en.toFixed(2) : 'Не визначено (інертний)';
-    document.getElementById('info-period-group').textContent = `Період ${el.period}, Група ${el.group}`;
-    document.getElementById('info-valence').textContent = `${el.valence} e⁻`;
-    document.getElementById('info-config').textContent = el.config;
-    document.getElementById('info-oxidation').textContent = el.oxidation;
-    document.getElementById('info-fact').textContent = el.fact;
-    document.getElementById('bohr-element-title').textContent = `${el.symbol} — ${el.name}`;
+    const atomicNumEl = document.getElementById('info-atomic-number');
+    const symbolEl = document.getElementById('info-symbol');
+    const nameEl = document.getElementById('info-name');
+    const catEl = document.getElementById('info-category');
+    const massEl = document.getElementById('info-mass');
+    const enEl = document.getElementById('info-en');
+    const pgEl = document.getElementById('info-period-group');
+    const valenceEl = document.getElementById('info-valence');
+    const configEl = document.getElementById('info-config');
+    const oxidationEl = document.getElementById('info-oxidation');
+    const factEl = document.getElementById('info-fact');
+    const bohrTitleEl = document.getElementById('bohr-element-title');
+    const shellsEl = document.getElementById('shells-summary');
 
-    // Shells breakdown
+    if (atomicNumEl) atomicNumEl.textContent = el.number;
+    if (symbolEl) symbolEl.textContent = el.symbol;
+    if (nameEl) nameEl.textContent = el.name;
+    if (catEl) catEl.textContent = getCategoryNameUk(el.category);
+    if (massEl) massEl.textContent = el.mass;
+    if (enEl) enEl.textContent = el.en > 0 ? el.en.toFixed(2) : 'Не визначено (інертний)';
+    if (pgEl) pgEl.textContent = `Період ${el.period}, Група ${el.group}`;
+    if (valenceEl) valenceEl.textContent = `${el.valence} e⁻`;
+    if (configEl) configEl.textContent = el.config;
+    if (oxidationEl) oxidationEl.textContent = el.oxidation;
+    if (factEl) factEl.textContent = el.fact;
+    if (bohrTitleEl) bohrTitleEl.textContent = `${el.symbol} — ${el.name}`;
+
+    // Shells breakdown (K, L, M, N...)
     const shellNames = ['K', 'L', 'M', 'N', 'O', 'P'];
     const shellsText = el.shells.map((count, i) => `${shellNames[i]}: ${count}`).join(' • ');
-    document.getElementById('shells-summary').innerHTML = `Електронні шари: <span>${shellsText}</span>`;
+    if (shellsEl) shellsEl.innerHTML = `Електронні шари: <span>${shellsText}</span>`;
 
     // Start Bohr model rendering
     bohrVisualizer.setElement(el);
 
-    modal.classList.add('active');
-    modal.setAttribute('aria-hidden', 'false');
+    if (modal) {
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+    }
   }
 
   function closeInspector() {
-    modal.classList.remove('active');
-    modal.setAttribute('aria-hidden', 'true');
+    if (modal) {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+    }
     bohrVisualizer.stop();
   }
 
@@ -104,12 +144,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (sendToBondBtn) {
     sendToBondBtn.addEventListener('click', () => {
       closeInspector();
-      const select1 = document.getElementById('atom1-select');
       if (select1) {
         select1.value = currentInspectedElement.symbol;
         updateBondFromSelects();
       }
-      // Scroll smoothly to constructor
       const bondSec = document.getElementById('bonds-section');
       if (bondSec) {
         bondSec.scrollIntoView({ behavior: 'smooth' });
@@ -118,11 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 4. Trend Visualizer Toggles
-  const trendButtons = document.querySelectorAll('.trend-btn');
-  const trendBanner = document.getElementById('trend-banner');
-  const trendBannerText = document.getElementById('trend-banner-text');
-
+  // 6. Trend Visualizer Toggles
   trendButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       trendButtons.forEach(b => b.classList.remove('active'));
@@ -159,7 +193,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (en === 0) {
           card.style.background = 'rgba(255, 255, 255, 0.02)';
         } else {
-          // Heatmap from light blue/green (low) to hot pink (high)
           const pct = Math.min(1, Math.max(0, (en - 0.7) / (3.98 - 0.7)));
           const r = Math.round(244 * pct);
           const g = Math.round(63 + 150 * (1 - pct));
@@ -193,10 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 5. Search & Filter
-  const searchInput = document.getElementById('element-search');
-  const categoryFilter = document.getElementById('category-filter');
-
+  // 7. Search & Category Filter
   function filterElements() {
     const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
     const category = categoryFilter ? categoryFilter.value : 'all';
@@ -214,8 +244,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (matchesSearch && matchesCategory) {
         card.classList.remove('dimmed');
+        if (category !== 'all' || query) {
+          card.classList.add('highlighted');
+        } else {
+          card.classList.remove('highlighted');
+        }
       } else {
         card.classList.add('dimmed');
+        card.classList.remove('highlighted');
       }
     });
   }
@@ -226,14 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.soundManager) window.soundManager.playClick();
   });
 
-  // 6. Bond Simulator Integration & Dropdowns
-  const select1 = document.getElementById('atom1-select');
-  const select2 = document.getElementById('atom2-select');
-  const animateBondBtn = document.getElementById('animate-bond-btn');
-  const presetBtns = document.querySelectorAll('.preset-btn');
-
-  populateBondDropdowns();
-
+  // 8. Bond Simulator Dropdowns & Presets
   function populateBondDropdowns() {
     if (!select1 || !select2) return;
     select1.innerHTML = '';
@@ -258,6 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateBondFromSelects() {
+    if (!select1 || !select2) return;
     const sym1 = select1.value;
     const sym2 = select2.value;
     const el1 = ELEMENTS_DATA.find(e => e.symbol === sym1);
@@ -265,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!el1 || !el2) return;
 
-    // Update pod mini-badges
+    // Update pod preview badges
     const b1 = document.getElementById('atom1-badge');
     const b2 = document.getElementById('atom2-badge');
     const en1 = document.getElementById('atom1-en-val');
@@ -290,7 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
       t2.className = `type-pill ${isMetal2 ? 'metal' : 'nonmetal'}`;
     }
 
-    // Check if matching preset exists
+    // Check if preset matches
     const presetKey = Object.keys(BOND_PRESETS).find(key => {
       const p = BOND_PRESETS[key];
       return (p.atom1 === el1.symbol && p.atom2 === el2.symbol) ||
@@ -324,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Preset Buttons
+  // Presets
   presetBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const key = btn.getAttribute('data-preset');
@@ -345,100 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 7. Audio Toggle Button
-  const audioBtn = document.getElementById('audio-toggle-btn');
-  const soundOnIcon = document.querySelector('.sound-on-icon');
-  const soundOffIcon = document.querySelector('.sound-off-icon');
-
-  function updateAudioIcons(isEnabled) {
-    if (soundOnIcon && soundOffIcon) {
-      if (isEnabled) {
-        soundOnIcon.classList.remove('hidden');
-        soundOffIcon.classList.add('hidden');
-      } else {
-        soundOnIcon.classList.add('hidden');
-        soundOffIcon.classList.remove('hidden');
-      }
-    }
-  }
-
-  updateAudioIcons(window.soundManager ? window.soundManager.enabled : true);
-
-  if (audioBtn) {
-    audioBtn.addEventListener('click', () => {
-      if (window.soundManager) {
-        const isEnabled = window.soundManager.toggle();
-        updateAudioIcons(isEnabled);
-      }
-    });
-  }
-
-  // 8. Info / Teacher Guide Modal
-  const infoModal = document.getElementById('info-modal');
-  const infoModalBtn = document.getElementById('info-modal-btn');
-  const mobileInfoBtn = document.getElementById('mobile-info-btn');
-  const closeInfoBtn = document.getElementById('close-info-modal-btn');
-  const closeInfoBtnBottom = document.getElementById('close-info-btn-bottom');
-  const modalBackdrop = document.getElementById('modal-backdrop');
-
-  function openInfoModal() {
-    if (infoModal) {
-      infoModal.classList.add('active');
-      infoModal.setAttribute('aria-hidden', 'false');
-      if (window.soundManager) window.soundManager.playClick();
-    }
-  }
-
-  function closeInfoModal() {
-    if (infoModal) {
-      infoModal.classList.remove('active');
-      infoModal.setAttribute('aria-hidden', 'true');
-    }
-  }
-
-  if (infoModalBtn) infoModalBtn.addEventListener('click', openInfoModal);
-  if (mobileInfoBtn) {
-    mobileInfoBtn.addEventListener('click', () => {
-      toggleMobileMenu(false);
-      openInfoModal();
-    });
-  }
-  if (closeInfoBtn) closeInfoBtn.addEventListener('click', closeInfoModal);
-  if (closeInfoBtnBottom) closeInfoBtnBottom.addEventListener('click', closeInfoModal);
-  if (modalBackdrop) modalBackdrop.addEventListener('click', closeInfoModal);
-
-  // 9. Mobile Menu Navigation
-  const mobileToggle = document.getElementById('mobile-menu-toggle');
-  const mobileDrawer = document.getElementById('mobile-drawer');
-
-  function toggleMobileMenu(forceState) {
-    if (!mobileDrawer) return;
-    const isCurrentlyActive = mobileDrawer.classList.contains('active');
-    const newState = forceState !== undefined ? forceState : !isCurrentlyActive;
-
-    if (newState) {
-      mobileDrawer.classList.add('active');
-      mobileDrawer.setAttribute('aria-hidden', 'false');
-    } else {
-      mobileDrawer.classList.remove('active');
-      mobileDrawer.setAttribute('aria-hidden', 'true');
-    }
-  }
-
-  if (mobileToggle) {
-    mobileToggle.addEventListener('click', () => {
-      toggleMobileMenu();
-      if (window.soundManager) window.soundManager.playClick();
-    });
-  }
-
-  document.querySelectorAll('.mobile-nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      toggleMobileMenu(false);
-    });
-  });
-
-  // Smooth active link highlight on scroll
+  // 9. Smooth Section Scrolling Highlight
   const sections = document.querySelectorAll('section[id]');
   window.addEventListener('scroll', () => {
     const scrollY = window.pageYOffset + 120;
@@ -455,18 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Category Translation Helper
-  function getCategoryNameUk(cat) {
-    const dict = {
-      'alkali': 'Лужний метал',
-      'alkaline-earth': 'Лужноземельний метал',
-      'transition': 'Перехідний метал',
-      'post-transition': 'Постперехідний метал',
-      'metalloid': 'Напівметал',
-      'nonmetal': 'Реактивний неметал',
-      'halogen': 'Галоген',
-      'noble': 'Благородний (інертний) газ'
-    };
-    return dict[cat] || cat;
-  }
+  // 10. Initial Render
+  renderPeriodicTable(ELEMENTS_DATA);
+  populateBondDropdowns();
 });

@@ -18,7 +18,7 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=2">
 </head>
 <body class="dark-theme">
   <!-- Glowing Background Orbs -->
@@ -48,45 +48,8 @@
         <a href="#ai-section" class="nav-link" data-target="ai-section">ШІ-Помічник</a>
         <a href="#quiz-section" class="nav-link" data-target="quiz-section">Вікторина</a>
       </nav>
-
-      <div class="header-actions">
-        <button class="icon-btn" id="audio-toggle-btn" title="Увімкнути/Вимкнути звукові ефекти" aria-label="Звук">
-          <svg class="sound-on-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-          </svg>
-          <svg class="sound-off-icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <line x1="23" y1="9" x2="17" y2="15"></line>
-            <line x1="17" y1="9" x2="23" y2="15"></line>
-          </svg>
-        </button>
-
-        <button class="btn btn-secondary btn-sm" id="info-modal-btn">
-          <span>Про проєкт</span>
-        </button>
-
-        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Меню">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </div>
     </div>
   </header>
-
-  <!-- Mobile Menu Drawer -->
-  <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
-    <div class="mobile-nav-links">
-      <a href="#hero" class="mobile-nav-link" data-target="hero">Головна</a>
-      <a href="#periodic-section" class="mobile-nav-link" data-target="periodic-section">Періодична система</a>
-      <a href="#bonds-section" class="mobile-nav-link" data-target="bonds-section">Конструктор зв'язку</a>
-      <a href="#ai-section" class="mobile-nav-link" data-target="ai-section">ШІ-Помічник Хемікус</a>
-      <a href="#quiz-section" class="mobile-nav-link" data-target="quiz-section">Вікторина та Квест</a>
-      <button class="btn btn-primary" id="mobile-info-btn">Довідка для уроку</button>
-    </div>
-  </div>
 
   <main>
     <!-- Hero Section -->
@@ -95,7 +58,7 @@
         <div class="hero-content">
           <div class="hero-tag">
             <span class="pulse-dot"></span>
-            <span>Цифровий освітній інструмент 8–9 клас</span>
+            <span>Цифровий освітній інструмент 11 клас</span>
           </div>
           <h1 class="hero-title">
             Відкрий магію <span class="gradient-text">Періодичного закону</span> та сили <span class="gradient-cyan">Хімічного зв'язку</span>
@@ -705,12 +668,12 @@
   <canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
 
   <!-- Scripts -->
-  <script src="js/data.js"></script>
-  <script src="js/audio.js"></script>
-  <script src="js/bohr-model.js"></script>
-  <script src="js/bond-simulator.js"></script>
-  <script src="js/ai-helper.js"></script>
-  <script src="js/quiz.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/data.js?v=2"></script>
+  <script src="js/audio.js?v=2"></script>
+  <script src="js/bohr-model.js?v=2"></script>
+  <script src="js/bond-simulator.js?v=2"></script>
+  <script src="js/ai-helper.js?v=2"></script>
+  <script src="js/quiz.js?v=2"></script>
+  <script src="js/app.js?v=2"></script>
 </body>
 </html>
