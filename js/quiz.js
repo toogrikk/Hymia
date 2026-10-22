@@ -159,13 +159,13 @@ class ChemQuiz {
     if (this.finalScore) this.finalScore.textContent = `${this.score}/${total}`;
     if (this.finalPercent) this.finalPercent.textContent = `${pct}%`;
 
-    let rank = "Початківець Атомарного Світу 🧪";
+    let rank = "Початківець у світі хімічних зв'язків 🧪";
     if (this.score === 6) {
-      rank = "Магістр Хімії та Періодичного Закону 🥇";
+      rank = "Магістр Хімічного Зв'язку 🥇";
     } else if (this.score >= 4) {
-      rank = "Хімік-Дослідник вищої категорії 🥈";
+      rank = "Дослідник хімічних зв'язків вищої категорії 🥈";
     } else if (this.score >= 2) {
-      rank = "Молодший Лаборант 🥉";
+      rank = "Молодший Лаборант з хімічних зв'язків 🥉";
     }
 
     if (this.rankName) this.rankName.textContent = rank;
