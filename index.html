@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChemPulse — Інтерактивна лабораторія атома та хімічного зв'язку</title>
+  <meta name="description" content="Сучасна інтерактивна веб-лабораторія для вивчення Періодичного закону, будови атома та природи хімічного зв'язку. Симуляції, візуалізація трендів, конструктор зв'язків та ШІ-помічник.">
+  <meta name="theme-color" content="#0b0f19">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="ChemPulse — Лабораторія атома та хімічного зв'язку">
+  <meta property="og:description" content="Досліджуй періодичну систему, моделюй хімічні зв'язки та навчайся інтерактивно!">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts: Google Fonts (Outfit & JetBrains Mono) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dark-theme">
+  <!-- Glowing Background Orbs -->
+  <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow-3" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header class="app-header" id="app-header">
+    <div class="header-container">
+      <a href="#" class="brand-logo" id="logo-btn">
+        <div class="brand-atom-icon">
+          <span class="orbit ring-1"></span>
+          <span class="orbit ring-2"></span>
+          <span class="nucleus"></span>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">Chem<span class="accent-text">Pulse</span></span>
+          <span class="brand-badge">Lab 2.0</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" id="nav-menu" aria-label="Головна навігація">
+        <a href="#hero" class="nav-link active" data-target="hero">Головна</a>
+        <a href="#periodic-section" class="nav-link" data-target="periodic-section">Періодична система</a>
+        <a href="#bonds-section" class="nav-link" data-target="bonds-section">Конструктор зв'язку</a>
+        <a href="#ai-section" class="nav-link" data-target="ai-section">ШІ-Помічник</a>
+        <a href="#quiz-section" class="nav-link" data-target="quiz-section">Вікторина</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="audio-toggle-btn" title="Увімкнути/Вимкнути звукові ефекти" aria-label="Звук">
+          <svg class="sound-on-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+          </svg>
+          <svg class="sound-off-icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </button>
+
+        <button class="btn btn-secondary btn-sm" id="info-modal-btn">
+          <span>Про проєкт</span>
+        </button>
+
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu Drawer -->
+  <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+    <div class="mobile-nav-links">
+      <a href="#hero" class="mobile-nav-link" data-target="hero">Головна</a>
+      <a href="#periodic-section" class="mobile-nav-link" data-target="periodic-section">Періодична система</a>
+      <a href="#bonds-section" class="mobile-nav-link" data-target="bonds-section">Конструктор зв'язку</a>
+      <a href="#ai-section" class="mobile-nav-link" data-target="ai-section">ШІ-Помічник Хемікус</a>
+      <a href="#quiz-section" class="mobile-nav-link" data-target="quiz-section">Вікторина та Квест</a>
+      <button class="btn btn-primary" id="mobile-info-btn">Довідка для уроку</button>
+    </div>
+  </div>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="hero-container">
+        <div class="hero-content">
+          <div class="hero-tag">
+            <span class="pulse-dot"></span>
+            <span>Цифровий освітній інструмент 8–9 клас</span>
+          </div>
+          <h1 class="hero-title">
+            Відкрий магію <span class="gradient-text">Періодичного закону</span> та сили <span class="gradient-cyan">Хімічного зв'язку</span>
+          </h1>
+          <p class="hero-subtitle">
+            Інтерактивна цифрова платформа, що перетворює сухі формули на живі анімовані моделі. Досліджуй будову атомів, керуй рухом електронів і дізнайся, як народжуються молекули навколишнього світу!
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#periodic-section" class="btn btn-primary btn-lg pulse-glow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <span>Періодична система</span>
+            </a>
+            <a href="#bonds-section" class="btn btn-secondary btn-lg">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+              </svg>
+              <span>Створити хімічний зв'язок</span>
+            </a>
+          </div>
+
+          <div class="hero-stats-cards">
+            <div class="stat-card">
+              <div class="stat-num" id="stat-elements-count">118</div>
+              <div class="stat-label">Елементів у базі</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num">4</div>
+              <div class="stat-label">Типи хімічного зв'язку</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num">100%</div>
+              <div class="stat-label">Живий інтерактив</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="atom-hero-container">
+            <canvas id="hero-atom-canvas" width="450" height="450"></canvas>
+            <div class="hero-floating-card top-left glassmorphism">
+              <span class="badge-dot-green"></span>
+              <div>
+                <strong>Правило октету</strong>
+                <small>8 валентних електронів</small>
+              </div>
+            </div>
+            <div class="hero-floating-card bottom-right glassmorphism">
+              <span class="badge-dot-blue"></span>
+              <div>
+                <strong>Δχ (Різниця ЕН)</strong>
+                <small>Ключ до природи зв'язку</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: Periodic Table & Trends -->
+    <section class="section periodic-section" id="periodic-section">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-pill">Модуль 1</div>
+          <h2 class="section-title">Інтерактивна Періодична система та Тренди</h2>
+          <p class="section-desc">
+            Натискай на будь-який хімічний елемент, щоб побачити живу динамічну модель атома Бора, розподіл електронів по енергетичних рівнях та вивчити періодичні закономірності.
+          </p>
+        </div>
+
+        <!-- Controls & Trends Selector -->
+        <div class="table-controls-bar glassmorphism">
+          <div class="trends-buttons">
+            <span class="control-label">Візуалізація трендів:</span>
+            <button class="trend-btn active" data-trend="none">Звичайний вигляд</button>
+            <button class="trend-btn" data-trend="electronegativity">
+              <span class="trend-indicator trend-en"></span>
+              Електронегативність (χ)
+            </button>
+            <button class="trend-btn" data-trend="radius">
+              <span class="trend-indicator trend-rad"></span>
+              Радіус атома (pm)
+            </button>
+            <button class="trend-btn" data-trend="valence">
+              <span class="trend-indicator trend-val"></span>
+              Валентні e⁻
+            </button>
+          </div>
+
+          <div class="search-and-filter">
+            <div class="search-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="element-search" placeholder="Пошук (Na, Оксиген, 11)..." autocomplete="off">
+            </div>
+
+            <div class="category-filter-wrapper">
+              <select id="category-filter" aria-label="Фільтр за класом">
+                <option value="all">Усі групи елементів</option>
+                <option value="alkali">Лужні метали</option>
+                <option value="alkaline-earth">Лужноземельні</option>
+                <option value="transition">Перехідні метали</option>
+                <option value="post-transition">Постперехідні метали</option>
+                <option value="metalloid">Напівметали</option>
+                <option value="nonmetal">Реактивні неметали</option>
+                <option value="halogen">Галогени</option>
+                <option value="noble">Інертні гази</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trend Explanation Banner (dynamic) -->
+        <div class="trend-banner glassmorphism" id="trend-banner" style="display: none;">
+          <div class="trend-banner-icon">💡</div>
+          <div class="trend-banner-content" id="trend-banner-text">
+            <strong>Електронегативність (χ):</strong> Зростає у періодах зліва направо (через зростання заряду ядра) та у головних підгрупах знизу вгору. Найбільш електронегативний елемент — Флуор (3.98), найменш — Францій (0.7).
+          </div>
+        </div>
+
+        <!-- Periodic Table Grid Container -->
+        <div class="periodic-grid-scroll-wrapper">
+          <div class="periodic-table-grid" id="periodic-table-grid">
+            <!-- Rendered dynamically by JS -->
+          </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="periodic-legend">
+          <div class="legend-item"><span class="legend-color alkali"></span>Лужні метали</div>
+          <div class="legend-item"><span class="legend-color alkaline-earth"></span>Лужноземельні</div>
+          <div class="legend-item"><span class="legend-color transition"></span>Перехідні метали</div>
+          <div class="legend-item"><span class="legend-color metalloid"></span>Напівметали</div>
+          <div class="legend-item"><span class="legend-color nonmetal"></span>Неметали</div>
+          <div class="legend-item"><span class="legend-color halogen"></span>Галогени</div>
+          <div class="legend-item"><span class="legend-color noble"></span>Інертні гази</div>
+        </div>
+
+        <!-- Element Details Inspector (Dynamic Modal/Card) -->
+        <div class="element-inspector-modal" id="element-modal" aria-hidden="true">
+          <div class="inspector-backdrop" id="inspector-backdrop"></div>
+          <div class="inspector-card glassmorphism">
+            <button class="close-modal-btn" id="close-inspector-btn" aria-label="Закрити">&times;</button>
+            <div class="inspector-content-grid">
+              <!-- Left side: Live Canvas Bohr Model -->
+              <div class="inspector-visual">
+                <div class="canvas-container">
+                  <canvas id="bohr-canvas" width="340" height="340"></canvas>
+                  <div class="canvas-badge" id="bohr-element-title">H — Гідроген</div>
+                </div>
+                <div class="shells-display" id="shells-summary">
+                  Рівні: <span>K: 1</span>
+                </div>
+              </div>
+
+              <!-- Right side: Data & Facts -->
+              <div class="inspector-info">
+                <div class="info-header">
+                  <div class="info-num-sym">
+                    <span class="info-num" id="info-atomic-number">1</span>
+                    <span class="info-symbol" id="info-symbol">H</span>
+                  </div>
+                  <div>
+                    <h3 class="info-name" id="info-name">Гідроген</h3>
+                    <div class="info-category-badge" id="info-category">Неметал</div>
+                  </div>
+                </div>
+
+                <div class="properties-grid">
+                  <div class="prop-item">
+                    <span class="prop-label">Атомна маса:</span>
+                    <span class="prop-val" id="info-mass">1.008</span>
+                  </div>
+                  <div class="prop-item">
+                    <span class="prop-label">Електронегативність:</span>
+                    <span class="prop-val highlight" id="info-en">2.20</span>
+                  </div>
+                  <div class="prop-item">
+                    <span class="prop-label">Період / Група:</span>
+                    <span class="prop-val" id="info-period-group">1 / 1</span>
+                  </div>
+                  <div class="prop-item">
+                    <span class="prop-label">Валентні електрони:</span>
+                    <span class="prop-val highlight" id="info-valence">1 e⁻</span>
+                  </div>
+                  <div class="prop-item full-width">
+                    <span class="prop-label">Електронна конфігурація:</span>
+                    <span class="prop-val code-font" id="info-config">1s¹</span>
+                  </div>
+                  <div class="prop-item full-width">
+                    <span class="prop-label">Ступені окиснення:</span>
+                    <span class="prop-val" id="info-oxidation">+1, -1</span>
+                  </div>
+                </div>
+
+                <div class="element-fact-box">
+                  <span class="fact-icon">🧪</span>
+                  <p id="info-fact">Найпоширеніший хімічний елемент у Всесвіті, на який припадає близько 75% усієї баріонної маси.</p>
+                </div>
+
+                <div class="inspector-actions">
+                  <button class="btn btn-primary btn-sm" id="send-to-bond-btn">
+                    <span>Перенести до Конструктора зв'язку ➜</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Chemical Bond Simulator & Constructor -->
+    <section class="section bonds-section" id="bonds-section">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-pill">Модуль 2</div>
+          <h2 class="section-title">Конструктор хімічного зв'язку</h2>
+          <p class="section-desc">
+            Обери два атоми та подивись, який зв'язок утворюється: <strong>йонний</strong>, <strong>ковалентний полярний</strong>, <strong>ковалентний неполярний</strong> чи <strong>металічний</strong>. Спостерігай за поведінкою спільних та переходних електронів у реальному часі!
+          </p>
+        </div>
+
+        <!-- Quick Presets -->
+        <div class="preset-selector-bar">
+          <span class="preset-title">Швидкі приклади:</span>
+          <div class="preset-buttons">
+            <button class="preset-btn active" data-preset="nacl">NaCl (Кухонна сіль)</button>
+            <button class="preset-btn" data-preset="h2o">H₂O (Вода)</button>
+            <button class="preset-btn" data-preset="hcl">HCl (Хлороводнева)</button>
+            <button class="preset-btn" data-preset="o2">O₂ (Кисень)</button>
+            <button class="preset-btn" data-preset="ch4">CH₄ (Метан)</button>
+            <button class="preset-btn" data-preset="fefe">Fe-Fe (Залізо / Метал)</button>
+          </div>
+        </div>
+
+        <!-- Main Bond Constructor Arena -->
+        <div class="bond-arena glassmorphism">
+          <!-- Selection Controls for Atom 1 & Atom 2 -->
+          <div class="arena-top-controls">
+            <div class="atom-select-card" id="atom1-card">
+              <label for="atom1-select">Перший атом (A):</label>
+              <div class="select-with-preview">
+                <select id="atom1-select" class="element-dropdown">
+                  <!-- Populated by JS -->
+                </select>
+                <div class="atom-badge-preview" id="atom1-badge">Na</div>
+              </div>
+              <div class="atom-mini-stats">
+                <span>χ = <strong id="atom1-en-val">0.93</strong></span>
+                <span id="atom1-type-label" class="type-pill metal">Метал</span>
+              </div>
+            </div>
+
+            <div class="arena-center-indicator">
+              <div class="diff-badge" id="diff-badge">
+                <span class="diff-sub">Різниця ЕН (Δχ)</span>
+                <span class="diff-val" id="diff-val">2.23</span>
+              </div>
+              <button class="btn btn-primary btn-sm pulse-btn" id="animate-bond-btn">
+                <span>Синтезувати зв'язок</span>
+              </button>
+            </div>
+
+            <div class="atom-select-card" id="atom2-card">
+              <label for="atom2-select">Другий атом (B):</label>
+              <div class="select-with-preview">
+                <select id="atom2-select" class="element-dropdown">
+                  <!-- Populated by JS -->
+                </select>
+                <div class="atom-badge-preview" id="atom2-badge">Cl</div>
+              </div>
+              <div class="atom-mini-stats">
+                <span>χ = <strong id="atom2-en-val">3.16</strong></span>
+                <span id="atom2-type-label" class="type-pill nonmetal">Неметал</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Visual Simulation Canvas / Stage -->
+          <div class="bond-stage" id="bond-stage">
+            <canvas id="bond-canvas" width="800" height="380"></canvas>
+            
+            <!-- Dynamic Tooltip overlays on stage -->
+            <div class="stage-overlay-labels">
+              <div class="stage-label-left" id="stage-atom1-label">Натрій (Na)</div>
+              <div class="stage-label-center" id="stage-bond-type-label">Йонний зв'язок</div>
+              <div class="stage-label-right" id="stage-atom2-label">Хлор (Cl)</div>
+            </div>
+          </div>
+
+          <!-- Result & Explanation Panel -->
+          <div class="bond-result-panel" id="bond-result-panel">
+            <div class="result-header">
+              <div class="result-badge-container">
+                <span class="bond-type-badge ionic" id="result-bond-badge">Йонний зв'язок</span>
+                <span class="compound-formula" id="result-formula">NaCl</span>
+              </div>
+              <div class="energy-indicator">
+                <span class="energy-dot"></span>
+                <span id="result-stability">Стабільна система (енергетичний мінімум)</span>
+              </div>
+            </div>
+
+            <div class="result-grid">
+              <div class="result-col">
+                <h4>Механізм утворення:</h4>
+                <p id="result-mechanism">
+                  Оскільки різниця електронегативностей Δχ = 2.23 (> 1.7), електрон повністю переходить від менш електронегативного атома Натрію до більш електронегативного атома Хлору. Утворюються протилежно заряджені йони Na⁺ та Cl⁻, які міцно утримуються електростатичними силами Кулона.
+                </p>
+              </div>
+              <div class="result-col">
+                <h4>Властивості речовини з таким зв'язком:</h4>
+                <ul class="properties-list" id="result-properties">
+                  <li>Кристалічна ґратка: <strong>йонна</strong></li>
+                  <li>Високі температури плавлення та кипіння</li>
+                  <li>Розчини та розплави проводять електричний струм</li>
+                  <li>Тверда, крихка речовина за звичайних умов</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Lewis Structure & Dot diagram preview -->
+            <div class="lewis-box">
+              <span class="lewis-title">Електронна схема (Льюїса):</span>
+              <div class="lewis-diagram" id="lewis-diagram">
+                [Na]⁺  :Cl̈:⁻
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bond Types Educational Summary Cards -->
+        <div class="bond-cards-grid">
+          <div class="bond-card glassmorphism">
+            <div class="card-icon ionic-icon">⚡</div>
+            <h3>Йонний зв'язок</h3>
+            <span class="rule-badge">Δχ > 1.7</span>
+            <p>Утворюється між металом і неметалом. Електрони віддаються повністю з утворенням катіонів (+) та аніонів (-).</p>
+            <div class="card-example">Приклади: NaCl, KBr, CaO, MgF₂</div>
+          </div>
+
+          <div class="bond-card glassmorphism">
+            <div class="card-icon polar-icon">↔️</div>
+            <h3>Ковалентний полярний</h3>
+            <span class="rule-badge">0.4 < Δχ ≤ 1.7</span>
+            <p>Утворюється між різними неметалами. Спільна електронна пара зміщена до більш електронегативного атома (виникають δ⁺ та δ⁻).</p>
+            <div class="card-example">Приклади: H₂O, HCl, NH₃, CO₂</div>
+          </div>
+
+          <div class="bond-card glassmorphism">
+            <div class="card-icon nonpolar-icon">⚖️</div>
+            <h3>Ковалентний неполярний</h3>
+            <span class="rule-badge">Δχ ≤ 0.4</span>
+            <p>Утворюється між однаковими неметалами. Спільна електронна хмара розподілена абсолютно симетрично.</p>
+            <div class="card-example">Приклади: H₂, O₂, N₂, Cl₂, F₂</div>
+          </div>
+
+          <div class="bond-card glassmorphism">
+            <div class="card-icon metallic-icon">⚙️</div>
+            <h3>Металічний зв'язок</h3>
+            <span class="rule-badge">Між металами</span>
+            <p>Позитивні йони металу у вузлах кристалічної ґратки утримуються спільним вільним "електронним газом". Забезпечує електропровідність і блиск.</p>
+            <div class="card-example">Приклади: Fe, Cu, Al, Au, Na</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: AI Assistant "Chemikus" -->
+    <section class="section ai-section" id="ai-section">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-pill">Модуль 3</div>
+          <h2 class="section-title">ШІ-Помічник «Хемікус»</h2>
+          <p class="section-desc">
+            Твій особистий інтелектуальний хімічний тьютор. Запитай про зв'язок у будь-якій формулі, закономірності Періодичного закону чи попроси підказку для уроку!
+          </p>
+        </div>
+
+        <div class="ai-chat-wrapper glassmorphism">
+          <div class="chat-header">
+            <div class="ai-avatar-group">
+              <div class="ai-avatar-pulse">
+                <span>🤖</span>
+              </div>
+              <div>
+                <h3 class="ai-name">Хемікус AI</h3>
+                <span class="ai-status"><span class="status-dot"></span>Онлайн • Готовий допомогти з хімією</span>
+              </div>
+            </div>
+            <button class="clear-chat-btn" id="clear-chat-btn" title="Очистити історію чату">Очистити</button>
+          </div>
+
+          <!-- Quick Suggestion Chips -->
+          <div class="chat-chips-scroll">
+            <button class="chip-btn" data-query="Який зв'язок у молекулі води H2O?">Який зв'язок у H₂O?</button>
+            <button class="chip-btn" data-query="Чому Флуор найбільш електронегативний елемент?">Чому F найсильніший?</button>
+            <button class="chip-btn" data-query="Поясни простими словами правило октету">Що таке правило октету?</button>
+            <button class="chip-btn" data-query="Як змінюється радіус атома у періодах і групах?">Як змінюється радіус атома?</button>
+            <button class="chip-btn" data-query="Порівняй зв'язки у NaCl та Cl2">Порівняй NaCl та Cl₂</button>
+          </div>
+
+          <!-- Messages Container -->
+          <div class="chat-messages" id="chat-messages">
+            <div class="message ai-message">
+              <div class="msg-bubble">
+                Привіт! 👋 Я твій інтелектуальний хімічний асистент <strong>Хемікус</strong>. 
+                <br><br>
+                Можеш запитати мене про будь-який хімічний зв'язок, як передбачити тип зв'язку за формулою сполуки, або як працює Періодична система. Обери запитання з підказок вгорі або напиши власне!
+              </div>
+              <span class="msg-time">Зараз</span>
+            </div>
+          </div>
+
+          <!-- Input Bar -->
+          <form class="chat-input-bar" id="chat-form">
+            <input 
+              type="text" 
+              id="chat-input" 
+              placeholder="Наприклад: 'Який зв'язок у NH3?' або 'Що таке йонний зв'язок?'..." 
+              autocomplete="off"
+            >
+            <button type="submit" class="chat-send-btn" id="chat-send-btn" aria-label="Надіслати">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: Quiz & Quest -->
+    <section class="section quiz-section" id="quiz-section">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-pill">Модуль 4</div>
+          <h2 class="section-title">Хімічний Квест & Вікторина</h2>
+          <p class="section-desc">
+            Перевір свої знання з теми "Періодичний закон" та "Хімічний зв'язок". Збирай бали, отримуй миттєвий зворотний зв'язок і здобудь звання майстра хімії!
+          </p>
+        </div>
+
+        <div class="quiz-container glassmorphism" id="quiz-container">
+          <!-- Quiz Start View -->
+          <div class="quiz-start-view" id="quiz-start-view">
+            <div class="quiz-trophy-icon">🏆</div>
+            <h3>Готовий перевірити свої сили?</h3>
+            <p>На тебе чекають 6 інтерактивних запитань: від порівняння електронегативності до розпізнавання природи хімічного зв'язку.</p>
+            
+            <div class="quiz-features-list">
+              <div class="q-feat"><span>✓</span> 6 питань на логіку та практику</div>
+              <div class="q-feat"><span>✓</span> Миттєві детальні пояснення помилок</div>
+              <div class="q-feat"><span>✓</span> Оцінка рівня знань та диплом знавця</div>
+            </div>
+
+            <button class="btn btn-primary btn-lg pulse-glow" id="start-quiz-btn">
+              <span>Розпочати вікторину</span>
+            </button>
+          </div>
+
+          <!-- Quiz Active View -->
+          <div class="quiz-active-view hidden" id="quiz-active-view">
+            <div class="quiz-progress-bar-wrapper">
+              <div class="quiz-progress-info">
+                <span>Питання <strong id="current-q-num">1</strong> з <span id="total-q-num">6</span></span>
+                <span class="quiz-score-badge">Рахунок: <strong id="live-score">0</strong></span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" id="quiz-progress-fill" style="width: 16%;"></div>
+              </div>
+            </div>
+
+            <div class="quiz-card">
+              <h4 class="quiz-question-text" id="quiz-question-text">
+                Питання завантажується...
+              </h4>
+
+              <div class="quiz-options-list" id="quiz-options-list">
+                <!-- Options rendered dynamically -->
+              </div>
+
+              <!-- Explanation Alert (Appears after answer) -->
+              <div class="quiz-explanation-box hidden" id="quiz-explanation-box">
+                <div class="exp-icon" id="exp-icon">💡</div>
+                <div class="exp-text" id="exp-text"></div>
+              </div>
+
+              <div class="quiz-footer-actions">
+                <button class="btn btn-primary hidden" id="next-q-btn">
+                  <span>Наступне питання ➜</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quiz Finish View -->
+          <div class="quiz-finish-view hidden" id="quiz-finish-view">
+            <div class="finish-icon" id="finish-icon">🎉</div>
+            <h3 class="finish-title" id="finish-title">Чудова робота!</h3>
+            <p class="finish-subtitle" id="finish-subtitle">Ти успішно пройшов квест з Періодичного закону та зв'язків.</p>
+
+            <div class="score-circle-container">
+              <div class="score-circle">
+                <span class="final-score" id="final-score">6/6</span>
+                <span class="score-percent" id="final-percent">100%</span>
+              </div>
+            </div>
+
+            <div class="rank-badge-box" id="rank-badge-box">
+              <span class="rank-title">Твоє звання:</span>
+              <strong class="rank-name" id="rank-name">Магістр Хімії 🥇</strong>
+            </div>
+
+            <div class="finish-actions">
+              <button class="btn btn-primary" id="restart-quiz-btn">
+                <span>Пройти ще раз</span>
+              </button>
+              <a href="#bonds-section" class="btn btn-secondary">
+                <span>Повернутись до симулятора</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Project Info / Teacher's Guide Modal -->
+  <div class="info-modal" id="info-modal" aria-hidden="true">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-card glassmorphism">
+      <button class="close-modal-btn" id="close-info-modal-btn" aria-label="Закрити">&times;</button>
+      
+      <div class="modal-header">
+        <div class="modal-badge">Довідка для вчителя та учня</div>
+        <h2>Про цифровий продукт «ChemPulse»</h2>
+      </div>
+
+      <div class="modal-body">
+        <div class="doc-block">
+          <h3>🎯 Відповідність навчальній програмі</h3>
+          <p>
+            Розроблено відповідно до програми з хімії МОН України для 8–9 класів. Охоплює дві взаємопов'язані фундаментальні теми:
+          </p>
+          <ul>
+            <li><strong>«Періодичний закон і Періодична система хімічних елементів. Будова атома»</strong> (зміна радіуса, електронегативності, енергетичні рівні).</li>
+            <li><strong>«Хімічний зв'язок і будова речовини»</strong> (йонний, ковалентний полярний та неполярний, металічний зв'язок, правило октету).</li>
+          </ul>
+        </div>
+
+        <div class="doc-block">
+          <h3>🔬 Чому цей інструмент робить вивчення цікавішим та практичним?</h3>
+          <ol>
+            <li><strong>Наочність замість абстракції:</strong> Анімовані моделі Бора показують електрони в русі, а не просто статичні малюнки з підручника.</li>
+            <li><strong>Дослідницький метод (Inquiry-based learning):</strong> Учень сам обирає пари елементів і бачить, чому різниця електронегативностей ($\Delta\chi$) визначає тип зв'язку.</li>
+            <li><strong>Штучний інтелект:</strong> Інтерактивний тьютор «Хемікус» дає відповіді на будь-які запитання та підтримує самостійне навчання.</li>
+            <li><strong>Гейміфікація:</strong> Вікторина закріплює знання у формі захопливого виклику з миттєвим розбором відповідей.</li>
+          </ol>
+        </div>
+
+        <div class="doc-block">
+          <h3>🚀 Як опубліковано на GitHub Pages</h3>
+          <p>
+            Сайт створено як чистий, легкий та оптимізований Single Page Application (HTML5, Vanilla CSS3, ES6 JavaScript, HTML5 Canvas). Не вимагає серверів та бази даних, адаптований під смартфони, планшети та ПК.
+          </p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-primary" id="close-info-btn-bottom">Зрозуміло</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="footer-brand">
+          Chem<span class="accent-text">Pulse</span>
+        </div>
+        <p>Інтерактивний цифровий освітній простір з хімії.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#hero">Вгору</a>
+        <a href="#periodic-section">Періодична система</a>
+        <a href="#bonds-section">Конструктор</a>
+        <a href="#ai-section">ШІ-Помічник</a>
+        <a href="#quiz-section">Вікторина</a>
+      </div>
+      <div class="footer-copy">
+        Створено для навчального проекту з хімії • Працює на GitHub Pages
+      </div>
+    </div>
+  </footer>
+
+  <!-- Confetti Canvas for celebration -->
+  <canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/bohr-model.js"></script>
+  <script src="js/bond-simulator.js"></script>
+  <script src="js/ai-helper.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
