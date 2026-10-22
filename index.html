@@ -1,15 +1,15 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ChemPulse вЂ” РҐС–РјС–С‡РЅРёР№ Р·РІ'СЏР·РѕРє: С–РЅС‚РµСЂР°РєС‚РёРІРЅР° Р»Р°Р±РѕСЂР°С‚РѕСЂС–СЏ | 11 РєР»Р°СЃ</title>
-  <meta name="description" content="Р†РЅС‚РµСЂР°РєС‚РёРІРЅР° РІРµР±-Р»Р°Р±РѕСЂР°С‚РѕСЂС–СЏ РґР»СЏ РІРёРІС‡РµРЅРЅСЏ С‚РµРјРё 'РҐС–РјС–С‡РЅРёР№ Р·РІ'СЏР·РѕРє' (11 РєР»Р°СЃ). Р”РѕСЃР»С–РґР¶СѓР№ Р№РѕРЅРЅРёР№, РєРѕРІР°Р»РµРЅС‚РЅРёР№ С– РјРµС‚Р°Р»С–С‡РЅРёР№ Р·РІ'СЏР·РєРё, РїСЂР°РІРёР»Рѕ РѕРєС‚РµС‚Сѓ, РµР»РµРєС‚СЂРѕРЅРµРіР°С‚РёРІРЅС–СЃС‚СЊ С‚Р° Р±СѓРґРѕРІСѓ РєСЂРёСЃС‚Р°Р»С–С‡РЅРёС… Т‘СЂР°С‚РѕРє.">
+  <title>ChemPulse — Хімічний зв'язок: інтерактивна лабораторія | 11 клас</title>
+  <meta name="description" content="Сучасна інтерактивна веб-лабораторія для 11 класу з теми «Хімічний зв'язок». Досліджуй природу зв'язку, електронегативність, правило октету, моделюй йонний, ковалентний і металічний зв'язки та проходь вікторину!">
   <meta name="theme-color" content="#0b0f19">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="ChemPulse вЂ” РҐС–РјС–С‡РЅРёР№ Р·РІ'СЏР·РѕРє | 11 РєР»Р°СЃ">
-  <meta property="og:description" content="Р†РЅС‚РµСЂР°РєС‚РёРІРЅРѕ РґРѕСЃР»С–РґР¶СѓР№ Р№РѕРЅРЅРёР№, РєРѕРІР°Р»РµРЅС‚РЅРёР№ С– РјРµС‚Р°Р»С–С‡РЅРёР№ С…С–РјС–С‡РЅС– Р·РІ'СЏР·РєРё. РџСЂР°РєС‚РёРєСѓР№СЃСЏ, РїРµСЂРµРІС–СЂСЏР№ Р·РЅР°РЅРЅСЏ Сѓ РІС–РєС‚РѕСЂРёРЅС–!">
+  <meta property="og:title" content="ChemPulse — Хімічний зв'язок | 11 клас">
+  <meta property="og:description" content="Інтерактивно досліджуй йонний, ковалентний і металічний хімічні зв'язки. Моделюй молекули, розраховуй Δχ та перевіряй знання у вікторині!">
   <meta property="og:type" content="website">
 
   <!-- Fonts: Google Fonts (Outfit & JetBrains Mono) -->
@@ -18,7 +18,7 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="css/style.css?v=2">
+  <link rel="stylesheet" href="css/style.css?v=6">
 </head>
 <body class="dark-theme">
   <!-- Glowing Background Orbs -->
@@ -37,14 +37,15 @@
         </div>
         <div class="brand-text">
           <span class="brand-title">Chem<span class="accent-text">Pulse</span></span>
-          <span class="brand-badge">Lab 2.0</span>
+          <span class="brand-badge">11 клас · Хімічний зв'язок</span>
         </div>
       </a>
 
-      <nav class="nav-menu" id="nav-menu" aria-label="Р“РѕР»РѕРІРЅР° РЅР°РІС–РіР°С†С–СЏ">
-        <a href="#hero" class="nav-link active" data-target="hero">Р“РѕР»РѕРІРЅР°</a>
-        <a href="#periodic-section" class="nav-link" data-target="periodic-section">РџРµСЂС–РѕРґРёС‡РЅР° СЃРёСЃС‚РµРјР°</a>
-        <a href="#quiz-section" class="nav-link" data-target="quiz-section">Р’С–РєС‚РѕСЂРёРЅР°</a>
+      <nav class="nav-menu" id="nav-menu" aria-label="Головна навігація">
+        <a href="#hero" class="nav-link active" data-target="hero">Головна</a>
+        <a href="#bonds-section" class="nav-link" data-target="bonds-section">Хімічний зв'язок</a>
+        <a href="#periodic-section" class="nav-link" data-target="periodic-section">Будова атомів</a>
+        <a href="#quiz-section" class="nav-link" data-target="quiz-section">Вікторина</a>
       </nav>
     </div>
   </header>
@@ -56,44 +57,44 @@
         <div class="hero-content">
           <div class="hero-tag">
             <span class="pulse-dot"></span>
-            <span>РҐС–РјС–СЏ В· 11 РєР»Р°СЃ В· РўРµРјР°: РҐС–РјС–С‡РЅРёР№ Р·РІ'СЏР·РѕРє</span>
+            <span>Хімія · 11 клас · Тема: Хімічний зв'язок</span>
           </div>
           <h1 class="hero-title">
-            Р РѕР·РєСЂРёР№ С‚Р°С”РјРЅРёС†С– <span class="gradient-text">РҐС–РјС–С‡РЅРѕРіРѕ Р·РІ'СЏР·РєСѓ</span>
+            Розкрий таємниці <span class="gradient-text">Хімічного зв'язку</span>
           </h1>
           <p class="hero-subtitle">
-            Р†РЅС‚РµСЂР°РєС‚РёРІРЅР° С†РёС„СЂРѕРІР° РїР»Р°С‚С„РѕСЂРјР° Р· С…С–РјС–С— РґР»СЏ 11 РєР»Р°СЃСѓ. Р”РѕСЃР»С–РґР¶СѓР№ Р№РѕРЅРЅРёР№, РєРѕРІР°Р»РµРЅС‚РЅРёР№ С– РјРµС‚Р°Р»С–С‡РЅРёР№ Р·РІ'СЏР·РєРё, РїСЂР°РІРёР»Рѕ РѕРєС‚РµС‚Сѓ, РµР»РµРєС‚СЂРѕРЅРµРіР°С‚РёРІРЅС–СЃС‚СЊ РµР»РµРјРµРЅС‚С–РІ С‚Р° Р±СѓРґРѕРІСѓ РєСЂРёСЃС‚Р°Р»С–С‡РЅРёС… Т‘СЂР°С‚РѕРє вЂ” С– РїРµСЂРµРІС–СЂ СЃРµР±Рµ Сѓ РІС–РєС‚РѕСЂРёРЅС–!
+            Інтерактивна цифрова платформа для 11 класу (навчальна програма: Хімічний зв'язок і будова речовини). Досліджуй природу зв'язку, різницю електронегативностей (Δχ), правило октету, йонні, ковалентні та металічні структури й перевір свої знання у вікторині!
           </p>
 
           <div class="hero-buttons">
-            <a href="#periodic-section" class="btn btn-primary btn-lg pulse-glow">
+            <a href="#bonds-section" class="btn btn-primary btn-lg pulse-glow">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
                 <circle cx="12" cy="12" r="3"></circle>
                 <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
               </svg>
-              <span>РџРµСЂС–РѕРґРёС‡РЅР° СЃРёСЃС‚РµРјР°</span>
+              <span>Конструктор зв'язку</span>
             </a>
             <a href="#quiz-section" class="btn btn-secondary btn-lg">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
                 <circle cx="12" cy="12" r="10"></circle>
                 <polygon points="10 8 16 12 10 16 10 8"></polygon>
               </svg>
-              <span>РџСЂРѕР№С‚Рё РІС–РєС‚РѕСЂРёРЅСѓ</span>
+              <span>Пройти вікторину</span>
             </a>
           </div>
 
           <div class="hero-stats-cards">
             <div class="stat-card">
               <div class="stat-num">4</div>
-              <div class="stat-label">РўРёРїРё С…С–РјС–С‡РЅРёС… Р·РІ'СЏР·РєС–РІ</div>
+              <div class="stat-label">Типи зв'язку (йонний, ковалентний, металічний)</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num">Δχ</div>
+              <div class="stat-label">Критерій різниці електронегативностей</div>
             </div>
             <div class="stat-card">
               <div class="stat-num">6</div>
-              <div class="stat-label">РџРёС‚Р°РЅСЊ Сѓ РІС–РєС‚РѕСЂРёРЅС–</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-num">100%</div>
-              <div class="stat-label">Р–РёРІРёР№ С–РЅС‚РµСЂР°РєС‚РёРІ</div>
+              <div class="stat-label">Запитань у вікторині з поясненнями</div>
             </div>
           </div>
 
@@ -105,15 +106,15 @@
             <div class="hero-floating-card top-left glassmorphism">
               <span class="badge-dot-green"></span>
               <div>
-                <strong>РџСЂР°РІРёР»Рѕ РѕРєС‚РµС‚Сѓ</strong>
-                <small>8 РІР°Р»РµРЅС‚РЅРёС… РµР»РµРєС‚СЂРѕРЅС–РІ</small>
+                <strong>Правило октету</strong>
+                <small>8 валентних e⁻ (стійкість)</small>
               </div>
             </div>
             <div class="hero-floating-card bottom-right glassmorphism">
               <span class="badge-dot-blue"></span>
               <div>
-                <strong>О”П‡ (Р С–Р·РЅРёС†СЏ Р•Рќ)</strong>
-                <small>РљР»СЋС‡ РґРѕ РїСЂРёСЂРѕРґРё Р·РІ'СЏР·РєСѓ</small>
+                <strong>Δχ (Різниця ЕН)</strong>
+                <small>Визначає тип зв'язку</small>
               </div>
             </div>
           </div>
@@ -121,33 +122,190 @@
       </div>
     </section>
 
-    <!-- SECTION 1: Periodic Table & Trends -->
+    <!-- SECTION 1: Chemical Bond Simulator & Theory (MODULE 1) -->
+    <section class="section bonds-section" id="bonds-section">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-pill">Модуль 1</div>
+          <h2 class="section-title">Конструктор та природа хімічного зв'язку</h2>
+          <p class="section-desc">
+            Хімічний зв'язок — це взаємодія атомів, що зумовлює утворення стійких молекул або кристалів зі зниженням повної енергії системи. За <strong>правилом октету</strong> атоми намагаються набути стійкої 8-електронної конфігурації благородного газу. Обери елементи або скористайся готовими прикладами, щоб побачити утворення зв'язку в реальному часі!
+          </p>
+        </div>
+
+        <!-- Quick Presets -->
+        <div class="preset-selector-bar">
+          <span class="preset-title">Швидкі навчальні приклади:</span>
+          <div class="preset-buttons">
+            <button class="preset-btn active" data-preset="nacl">NaCl (Кухонна сіль · Йонний)</button>
+            <button class="preset-btn" data-preset="h2o">H₂O (Вода · Ковалентний полярний)</button>
+            <button class="preset-btn" data-preset="hcl">HCl (Хлороводень · Полярний)</button>
+            <button class="preset-btn" data-preset="o2">O₂ (Кисень · Неполярний)</button>
+            <button class="preset-btn" data-preset="ch4">CH₄ (Метан · Слабополярний)</button>
+            <button class="preset-btn" data-preset="fefe">Fe-Fe (Залізо · Металічний)</button>
+          </div>
+        </div>
+
+        <!-- Main Bond Constructor Arena -->
+        <div class="bond-arena glassmorphism">
+          <!-- Selection Controls for Atom 1 & Atom 2 -->
+          <div class="arena-top-controls">
+            <div class="atom-select-card" id="atom1-card">
+              <label for="atom1-select">Перший атом (A):</label>
+              <div class="select-with-preview">
+                <select id="atom1-select" class="element-dropdown" aria-label="Перший елемент">
+                  <!-- Populated by JS -->
+                </select>
+                <div class="atom-badge-preview" id="atom1-badge">Na</div>
+              </div>
+              <div class="atom-mini-stats">
+                <span>χ = <strong id="atom1-en-val">0.93</strong></span>
+                <span id="atom1-type-label" class="type-pill metal">Метал</span>
+              </div>
+            </div>
+
+            <div class="arena-center-indicator">
+              <div class="diff-badge" id="diff-badge">
+                <span class="diff-sub">Різниця ЕН (Δχ)</span>
+                <span class="diff-val" id="diff-val">2.23</span>
+              </div>
+              <button class="btn btn-primary btn-sm pulse-btn" id="animate-bond-btn">
+                <span>Синтезувати зв'язок</span>
+              </button>
+            </div>
+
+            <div class="atom-select-card" id="atom2-card">
+              <label for="atom2-select">Другий атом (B):</label>
+              <div class="select-with-preview">
+                <select id="atom2-select" class="element-dropdown" aria-label="Другий елемент">
+                  <!-- Populated by JS -->
+                </select>
+                <div class="atom-badge-preview" id="atom2-badge">Cl</div>
+              </div>
+              <div class="atom-mini-stats">
+                <span>χ = <strong id="atom2-en-val">3.16</strong></span>
+                <span id="atom2-type-label" class="type-pill nonmetal">Неметал</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Visual Simulation Canvas / Stage -->
+          <div class="bond-stage" id="bond-stage">
+            <canvas id="bond-canvas" width="800" height="380"></canvas>
+            
+            <!-- Dynamic Tooltip overlays on stage -->
+            <div class="stage-overlay-labels">
+              <div class="stage-label-left" id="stage-atom1-label">Натрій (Na)</div>
+              <div class="stage-label-center" id="stage-bond-type-label">Йонний зв'язок</div>
+              <div class="stage-label-right" id="stage-atom2-label">Хлор (Cl)</div>
+            </div>
+          </div>
+
+          <!-- Result & Explanation Panel -->
+          <div class="bond-result-panel" id="bond-result-panel">
+            <div class="result-header">
+              <div class="result-badge-container">
+                <span class="bond-type-badge ionic" id="result-bond-badge">Йонний зв'язок</span>
+                <span class="compound-formula" id="result-formula">NaCl</span>
+              </div>
+              <div class="energy-indicator">
+                <span class="energy-dot"></span>
+                <span id="result-stability">Стабільна система (енергетичний мінімум за правилом октету)</span>
+              </div>
+            </div>
+
+            <div class="result-grid">
+              <div class="result-col">
+                <h4>Механізм утворення:</h4>
+                <p id="result-mechanism">
+                  Оскільки різниця електронегативностей Δχ = 2.23 (> 1.7), електрон повністю переходить від менш електронегативного атома Натрію до більш електронегативного атома Хлору. Утворюються протилежно заряджені йони Na⁺ та Cl⁻, які міцно утримуються електростатичними силами Кулона.
+                </p>
+              </div>
+              <div class="result-col">
+                <h4>Властивості речовини з таким зв'язком:</h4>
+                <ul class="properties-list" id="result-properties">
+                  <li>Кристалічна ґратка: <strong>йонна</strong></li>
+                  <li>Високі температури плавлення та кипіння</li>
+                  <li>Розчини та розплави проводять електричний струм</li>
+                  <li>Тверда, крихка речовина за звичайних умов</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Lewis Structure & Dot diagram preview -->
+            <div class="lewis-box">
+              <span class="lewis-title">Електронна схема (Льюїса):</span>
+              <div class="lewis-diagram" id="lewis-diagram">
+                [Na]⁺  :Cl̈:⁻
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bond Types Educational Summary Cards -->
+        <div class="bond-cards-grid">
+          <div class="bond-card glassmorphism">
+            <div class="card-icon ionic-icon">⚡</div>
+            <h3>Йонний зв'язок</h3>
+            <span class="rule-badge">Δχ > 1.7</span>
+            <p>Утворюється між металом і неметалом. Електрони віддаються повністю з утворенням протилежно заряджених катіонів (+) та аніонів (-).</p>
+            <div class="card-example">Приклади: NaCl, KBr, CaO, MgF₂</div>
+          </div>
+
+          <div class="bond-card glassmorphism">
+            <div class="card-icon polar-icon">↔️</div>
+            <h3>Ковалентний полярний</h3>
+            <span class="rule-badge">0.4 < Δχ ≤ 1.7</span>
+            <p>Утворюється між різними неметалами. Спільна електронна пара зміщена до більш електронегативного атома (виникають часткові заряди δ⁺ та δ⁻).</p>
+            <div class="card-example">Приклади: H₂O, HCl, NH₃, CO₂</div>
+          </div>
+
+          <div class="bond-card glassmorphism">
+            <div class="card-icon nonpolar-icon">⚖️</div>
+            <h3>Ковалентний неполярний</h3>
+            <span class="rule-badge">Δχ ≤ 0.4</span>
+            <p>Утворюється між однаковими неметалами (або дуже близькими за ЕН). Спільна електронна хмара розподілена абсолютно симетрично.</p>
+            <div class="card-example">Приклади: H₂, O₂, N₂, Cl₂, CH₄</div>
+          </div>
+
+          <div class="bond-card glassmorphism">
+            <div class="card-icon metallic-icon">⚙️</div>
+            <h3>Металічний зв'язок</h3>
+            <span class="rule-badge">Між атомами металів</span>
+            <p>Позитивні йони металу у вузлах кристалічної ґратки утримуються спільним вільним «електронним газом». Забезпечує електропровідність, ковкість і металічний блиск.</p>
+            <div class="card-example">Приклади: Fe, Cu, Al, Au, Na</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Periodic Table & Atomic Structure (MODULE 2) -->
     <section class="section periodic-section" id="periodic-section">
       <div class="section-container">
         <div class="section-header">
-          <div class="section-pill">РњРѕРґСѓР»СЊ 1</div>
-          <h2 class="section-title">Р•Р»РµРєС‚СЂРѕРЅРµРіР°С‚РёРІРЅС–СЃС‚СЊ С– Р±СѓРґРѕРІР° Р°С‚РѕРјС–РІ</h2>
+          <div class="section-pill">Модуль 2</div>
+          <h2 class="section-title">Електронегативність, валентність і будова атомів</h2>
           <p class="section-desc">
-            РќР°С‚РёСЃРєР°Р№ РЅР° Р±СѓРґСЊ-СЏРєРёР№ С…С–РјС–С‡РЅРёР№ РµР»РµРјРµРЅС‚, С‰РѕР± РїРѕР±Р°С‡РёС‚Рё Р¶РёРІСѓ РјРѕРґРµР»СЊ Р°С‚РѕРјР° Р‘РѕСЂР°, СЂРѕР·РїРѕРґС–Р» РµР»РµРєС‚СЂРѕРЅС–РІ РїРѕ СЂС–РІРЅСЏС… С– Р·РЅР°С‡РµРЅРЅСЏ РµР»РµРєС‚СЂРѕРЅРµРіР°С‚РёРІРЅРѕСЃС‚С– вЂ” РєР»СЋС‡РѕРІРѕРіРѕ РїР°СЂР°РјРµС‚СЂР°, С‰Рѕ РІРёР·РЅР°С‡Р°С” С‚РёРї С…С–РјС–С‡РЅРѕРіРѕ Р·РІ'СЏР·РєСѓ РјС–Р¶ Р°С‚РѕРјР°РјРё.
+            Електронегативність (χ) та число валентних електронів — фундаментальні характеристики атома, що визначають його здатність утворювати хімічні зв'язки. Натискай на будь-який елемент для перегляду живої моделі Бора, електронної конфігурації та правила октету.
           </p>
         </div>
 
         <!-- Controls & Trends Selector -->
         <div class="table-controls-bar glassmorphism">
           <div class="trends-buttons">
-            <span class="control-label">Р’С–Р·СѓР°Р»С–Р·Р°С†С–СЏ С‚СЂРµРЅРґС–РІ:</span>
-            <button class="trend-btn active" data-trend="none">Р—РІРёС‡Р°Р№РЅРёР№ РІРёРіР»СЏРґ</button>
+            <span class="control-label">Візуалізація трендів зв'язку:</span>
+            <button class="trend-btn active" data-trend="none">Звичайний вигляд</button>
             <button class="trend-btn" data-trend="electronegativity">
               <span class="trend-indicator trend-en"></span>
-              Р•Р»РµРєС‚СЂРѕРЅРµРіР°С‚РёРІРЅС–СЃС‚СЊ (П‡)
-            </button>
-            <button class="trend-btn" data-trend="radius">
-              <span class="trend-indicator trend-rad"></span>
-              Р Р°РґС–СѓСЃ Р°С‚РѕРјР° (pm)
+              Електронегативність (χ)
             </button>
             <button class="trend-btn" data-trend="valence">
               <span class="trend-indicator trend-val"></span>
-              Р’Р°Р»РµРЅС‚РЅС– eвЃ»
+              Валентні e⁻ (Октет)
+            </button>
+            <button class="trend-btn" data-trend="radius">
+              <span class="trend-indicator trend-rad"></span>
+              Радіус атома (pm)
             </button>
           </div>
 
@@ -157,20 +315,20 @@
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
-              <input type="text" id="element-search" placeholder="РџРѕС€СѓРє (Na, РћРєСЃРёРіРµРЅ, 11)..." autocomplete="off">
+              <input type="text" id="element-search" placeholder="Пошук (Na, Оксиген, 11)..." autocomplete="off">
             </div>
 
             <div class="category-filter-wrapper">
-              <select id="category-filter" aria-label="Р¤С–Р»СЊС‚СЂ Р·Р° РєР»Р°СЃРѕРј">
-                <option value="all">РЈСЃС– РіСЂСѓРїРё РµР»РµРјРµРЅС‚С–РІ</option>
-                <option value="alkali">Р›СѓР¶РЅС– РјРµС‚Р°Р»Рё</option>
-                <option value="alkaline-earth">Р›СѓР¶РЅРѕР·РµРјРµР»СЊРЅС–</option>
-                <option value="transition">РџРµСЂРµС…С–РґРЅС– РјРµС‚Р°Р»Рё</option>
-                <option value="post-transition">РџРѕСЃС‚РїРµСЂРµС…С–РґРЅС– РјРµС‚Р°Р»Рё</option>
-                <option value="metalloid">РќР°РїС–РІРјРµС‚Р°Р»Рё</option>
-                <option value="nonmetal">Р РµР°РєС‚РёРІРЅС– РЅРµРјРµС‚Р°Р»Рё</option>
-                <option value="halogen">Р“Р°Р»РѕРіРµРЅРё</option>
-                <option value="noble">Р†РЅРµСЂС‚РЅС– РіР°Р·Рё</option>
+              <select id="category-filter" aria-label="Фільтр за класом">
+                <option value="all">Усі групи елементів</option>
+                <option value="alkali">Лужні метали</option>
+                <option value="alkaline-earth">Лужноземельні</option>
+                <option value="transition">Перехідні метали</option>
+                <option value="post-transition">Постперехідні метали</option>
+                <option value="metalloid">Напівметали</option>
+                <option value="nonmetal">Реактивні неметали</option>
+                <option value="halogen">Галогени</option>
+                <option value="noble">Інертні гази (завершений октет)</option>
               </select>
             </div>
           </div>
@@ -178,15 +336,15 @@
 
         <!-- Trend Explanation Banner (dynamic) -->
         <div class="trend-banner glassmorphism" id="trend-banner" style="display: none;">
-          <div class="trend-banner-icon">рџ’Ў</div>
+          <div class="trend-banner-icon">💡</div>
           <div class="trend-banner-content" id="trend-banner-text">
-            <strong>Р•Р»РµРєС‚СЂРѕРЅРµРіР°С‚РёРІРЅС–СЃС‚СЊ (П‡):</strong> Р—СЂРѕСЃС‚Р°С” Сѓ РїРµСЂС–РѕРґР°С… Р·Р»С–РІР° РЅР°РїСЂР°РІРѕ (С‡РµСЂРµР· Р·СЂРѕСЃС‚Р°РЅРЅСЏ Р·Р°СЂСЏРґСѓ СЏРґСЂР°) С‚Р° Сѓ РіРѕР»РѕРІРЅРёС… РїС–РґРіСЂСѓРїР°С… Р·РЅРёР·Сѓ РІРіРѕСЂСѓ. РќР°Р№Р±С–Р»СЊС€ РµР»РµРєС‚СЂРѕРЅРµРіР°С‚РёРІРЅРёР№ РµР»РµРјРµРЅС‚ вЂ” Р¤Р»СѓРѕСЂ (3.98), РЅР°Р№РјРµРЅС€ вЂ” Р¤СЂР°РЅС†С–Р№ (0.7).
+            <strong>Електронегативність (χ):</strong> Зростає у періодах зліва направо (через зростання заряду ядра) та у головних підгрупах знизу вгору. Найбільш електронегативний елемент — Флуор (3.98), найменш — Францій (0.7).
           </div>
         </div>
 
         <!-- Periodic Table Grid Container -->
         <div class="periodic-mobile-hint">
-          <span>рџ‘€ Р“РѕСЂС‚Р°Р№С‚Рµ С‚Р°Р±Р»РёС†СЋ РІРїСЂР°РІРѕ/РІР»С–РІРѕ РґР»СЏ РїРµСЂРµРіР»СЏРґСѓ РІСЃС–С… 18 РіСЂСѓРї рџ‘‰</span>
+          <span>👈 Гортайте таблицю вправо/вліво для перегляду всіх 18 груп 👉</span>
         </div>
         <div class="periodic-grid-scroll-wrapper">
           <div class="periodic-table-grid" id="periodic-table-grid">
@@ -196,29 +354,29 @@
 
         <!-- Legend -->
         <div class="periodic-legend">
-          <div class="legend-item"><span class="legend-color alkali"></span>Р›СѓР¶РЅС– РјРµС‚Р°Р»Рё</div>
-          <div class="legend-item"><span class="legend-color alkaline-earth"></span>Р›СѓР¶РЅРѕР·РµРјРµР»СЊРЅС–</div>
-          <div class="legend-item"><span class="legend-color transition"></span>РџРµСЂРµС…С–РґРЅС– РјРµС‚Р°Р»Рё</div>
-          <div class="legend-item"><span class="legend-color metalloid"></span>РќР°РїС–РІРјРµС‚Р°Р»Рё</div>
-          <div class="legend-item"><span class="legend-color nonmetal"></span>РќРµРјРµС‚Р°Р»Рё</div>
-          <div class="legend-item"><span class="legend-color halogen"></span>Р“Р°Р»РѕРіРµРЅРё</div>
-          <div class="legend-item"><span class="legend-color noble"></span>Р†РЅРµСЂС‚РЅС– РіР°Р·Рё</div>
+          <div class="legend-item"><span class="legend-color alkali"></span>Лужні метали</div>
+          <div class="legend-item"><span class="legend-color alkaline-earth"></span>Лужноземельні</div>
+          <div class="legend-item"><span class="legend-color transition"></span>Перехідні метали</div>
+          <div class="legend-item"><span class="legend-color metalloid"></span>Напівметали</div>
+          <div class="legend-item"><span class="legend-color nonmetal"></span>Неметали</div>
+          <div class="legend-item"><span class="legend-color halogen"></span>Галогени</div>
+          <div class="legend-item"><span class="legend-color noble"></span>Інертні гази</div>
         </div>
 
         <!-- Element Details Inspector (Dynamic Modal/Card) -->
         <div class="element-inspector-modal" id="element-modal" aria-hidden="true">
           <div class="inspector-backdrop" id="inspector-backdrop"></div>
           <div class="inspector-card glassmorphism">
-            <button class="close-modal-btn" id="close-inspector-btn" aria-label="Р—Р°РєСЂРёС‚Рё">&times;</button>
+            <button class="close-modal-btn" id="close-inspector-btn" aria-label="Закрити">&times;</button>
             <div class="inspector-content-grid">
               <!-- Left side: Live Canvas Bohr Model -->
               <div class="inspector-visual">
                 <div class="canvas-container">
                   <canvas id="bohr-canvas" width="340" height="340"></canvas>
-                  <div class="canvas-badge" id="bohr-element-title">H вЂ” Р“С–РґСЂРѕРіРµРЅ</div>
+                  <div class="canvas-badge" id="bohr-element-title">H — Гідроген</div>
                 </div>
                 <div class="shells-display" id="shells-summary">
-                  Р С–РІРЅС–: <span>K: 1</span>
+                  Рівні: <span>K: 1</span>
                 </div>
               </div>
 
@@ -230,46 +388,49 @@
                     <span class="info-symbol" id="info-symbol">H</span>
                   </div>
                   <div>
-                    <h3 class="info-name" id="info-name">Р“С–РґСЂРѕРіРµРЅ</h3>
-                    <div class="info-category-badge" id="info-category">РќРµРјРµС‚Р°Р»</div>
+                    <h3 class="info-name" id="info-name">Гідроген</h3>
+                    <div class="info-category-badge" id="info-category">Неметал</div>
                   </div>
                 </div>
 
                 <div class="properties-grid">
                   <div class="prop-item">
-                    <span class="prop-label">РђС‚РѕРјРЅР° РјР°СЃР°:</span>
+                    <span class="prop-label">Атомна маса:</span>
                     <span class="prop-val" id="info-mass">1.008</span>
                   </div>
                   <div class="prop-item">
-                    <span class="prop-label">Р•Р»РµРєС‚СЂРѕРЅРµРіР°С‚РёРІРЅС–СЃС‚СЊ:</span>
+                    <span class="prop-label">Електронегативність:</span>
                     <span class="prop-val highlight" id="info-en">2.20</span>
                   </div>
                   <div class="prop-item">
-                    <span class="prop-label">РџРµСЂС–РѕРґ / Р“СЂСѓРїР°:</span>
+                    <span class="prop-label">Період / Група:</span>
                     <span class="prop-val" id="info-period-group">1 / 1</span>
                   </div>
                   <div class="prop-item">
-                    <span class="prop-label">Р’Р°Р»РµРЅС‚РЅС– РµР»РµРєС‚СЂРѕРЅРё:</span>
-                    <span class="prop-val highlight" id="info-valence">1 eвЃ»</span>
+                    <span class="prop-label">Валентні електрони:</span>
+                    <span class="prop-val highlight" id="info-valence">1 e⁻</span>
                   </div>
                   <div class="prop-item full-width">
-                    <span class="prop-label">Р•Р»РµРєС‚СЂРѕРЅРЅР° РєРѕРЅС„С–РіСѓСЂР°С†С–СЏ:</span>
-                    <span class="prop-val code-font" id="info-config">1sВ№</span>
+                    <span class="prop-label">Електронна конфігурація:</span>
+                    <span class="prop-val code-font" id="info-config">1s¹</span>
                   </div>
                   <div class="prop-item full-width">
-                    <span class="prop-label">РЎС‚СѓРїРµРЅС– РѕРєРёСЃРЅРµРЅРЅСЏ:</span>
+                    <span class="prop-label">Ступені окиснення:</span>
                     <span class="prop-val" id="info-oxidation">+1, -1</span>
                   </div>
                 </div>
 
                 <div class="element-fact-box">
-                  <span class="fact-icon">рџ§Є</span>
-                  <p id="info-fact">РќР°Р№РїРѕС€РёСЂРµРЅС–С€РёР№ С…С–РјС–С‡РЅРёР№ РµР»РµРјРµРЅС‚ Сѓ Р’СЃРµСЃРІС–С‚С–, РЅР° СЏРєРёР№ РїСЂРёРїР°РґР°С” Р±Р»РёР·СЊРєРѕ 75% СѓСЃС–С”С— Р±Р°СЂС–РѕРЅРЅРѕС— РјР°СЃРё.</p>
+                  <span class="fact-icon">🧪</span>
+                  <p id="info-fact">Найпоширеніший хімічний елемент у Всесвіті, на який припадає близько 75% усієї видимої маси.</p>
                 </div>
 
                 <div class="inspector-actions">
+                  <button class="btn btn-primary btn-sm" id="use-in-bond-btn">
+                    <span>⚡ Дослідити зв'язок з цим атомом</span>
+                  </button>
                   <button class="btn btn-secondary btn-sm" id="close-inspector-action-btn">
-                    <span>Р—Р°РєСЂРёС‚Рё РєР°СЂС‚РєСѓ</span>
+                    <span>Закрити</span>
                   </button>
                 </div>
               </div>
@@ -279,33 +440,32 @@
       </div>
     </section>
 
-
-    <!-- SECTION: Quiz & Quest -->
+    <!-- SECTION 3: Quiz & Quest (MODULE 3) -->
     <section class="section quiz-section" id="quiz-section">
       <div class="section-container">
         <div class="section-header">
-          <div class="section-pill">РўРµСЃС‚СѓРІР°РЅРЅСЏ Р·РЅР°РЅСЊ</div>
-          <h2 class="section-title">РҐС–РјС–С‡РЅРёР№ РљРІРµСЃС‚ & Р’С–РєС‚РѕСЂРёРЅР°</h2>
+          <div class="section-pill">Модуль 3 · Перевірка знань</div>
+          <h2 class="section-title">Хімічний Квест & Вікторина</h2>
           <p class="section-desc">
-            РџРµСЂРµРІС–СЂ СЃРІРѕС— Р·РЅР°РЅРЅСЏ Р· С‚РµРјРё "РџРµСЂС–РѕРґРёС‡РЅРёР№ Р·Р°РєРѕРЅ С– РџРµСЂС–РѕРґРёС‡РЅР° СЃРёСЃС‚РµРјР° С…С–РјС–С‡РЅРёС… РµР»РµРјРµРЅС‚С–РІ". Р—Р±РёСЂР°Р№ Р±Р°Р»Рё, РѕС‚СЂРёРјСѓР№ РјРёС‚С‚С”РІРёР№ Р·РІРѕСЂРѕС‚РЅРёР№ Р·РІ'СЏР·РѕРє С– Р·РґРѕР±СѓРґСЊ Р·РІР°РЅРЅСЏ РјР°Р№СЃС‚СЂР° С…С–РјС–С—!
+            Перевір свої знання з теми «Хімічний зв'язок» (11 клас). Збирай бали, отримуй миттєвий зворотний зв'язок і здобудь звання майстра хімічного зв'язку!
           </p>
         </div>
 
         <div class="quiz-container glassmorphism" id="quiz-container">
           <!-- Quiz Start View -->
           <div class="quiz-start-view" id="quiz-start-view">
-            <div class="quiz-trophy-icon">рџ”—</div>
-            <h3>Р“РѕС‚РѕРІРёР№ РїРµСЂРµРІС–СЂРёС‚Рё СЃРІРѕС— СЃРёР»Рё?</h3>
-            <p>РќР° С‚РµР±Рµ С‡РµРєР°СЋС‚СЊ 6 С–РЅС‚РµСЂР°РєС‚РёРІРЅРёС… Р·Р°РїРёС‚Р°РЅСЊ Р· С‚РµРјРё В«РҐС–РјС–С‡РЅРёР№ Р·РІ'СЏР·РѕРєВ»: РІС–Рґ С‚РёРїС–РІ Р·РІ'СЏР·РєСѓ С‚Р° РїСЂР°РІРёР»Р° РѕРєС‚РµС‚Сѓ РґРѕ РІР»Р°СЃС‚РёРІРѕСЃС‚РµР№ РєСЂРёСЃС‚Р°Р»С–С‡РЅРёС… Т‘СЂР°С‚РѕРє.</p>
+            <div class="quiz-trophy-icon">🔗</div>
+            <h3>Готовий перевірити свої сили?</h3>
+            <p>На тебе чекають 6 інтерактивних запитань з теми «Хімічний зв'язок»: від типів зв'язку та правила октету до властивостей кристалічних ґраток.</p>
             
             <div class="quiz-features-list">
-              <div class="q-feat"><span>вњ“</span> 6 РїРёС‚Р°РЅСЊ РїСЂРѕ Р№РѕРЅРЅРёР№, РєРѕРІР°Р»РµРЅС‚РЅРёР№ С– РјРµС‚Р°Р»С–С‡РЅРёР№ Р·РІ'СЏР·РєРё</div>
-              <div class="q-feat"><span>вњ“</span> РњРёС‚С‚С”РІС– РґРµС‚Р°Р»СЊРЅС– РїРѕСЏСЃРЅРµРЅРЅСЏ РїРѕРјРёР»РѕРє</div>
-              <div class="q-feat"><span>вњ“</span> РћС†С–РЅРєР° СЂС–РІРЅСЏ Р·РЅР°РЅСЊ С‚Р° Р·РІР°РЅРЅСЏ Р·РЅР°РІС†СЏ С…С–РјС–С‡РЅРѕРіРѕ Р·РІ'СЏР·РєСѓ</div>
+              <div class="q-feat"><span>✓</span> 6 питань про йонний, ковалентний і металічний зв'язки</div>
+              <div class="q-feat"><span>✓</span> Миттєві детальні пояснення кожної відповіді</div>
+              <div class="q-feat"><span>✓</span> Оцінка рівня знань та диплом знавця хімічного зв'язку</div>
             </div>
 
             <button class="btn btn-primary btn-lg pulse-glow" id="start-quiz-btn">
-              <span>Р РѕР·РїРѕС‡Р°С‚Рё РІС–РєС‚РѕСЂРёРЅСѓ</span>
+              <span>Розпочати вікторину</span>
             </button>
           </div>
 
@@ -313,8 +473,8 @@
           <div class="quiz-active-view hidden" id="quiz-active-view">
             <div class="quiz-progress-bar-wrapper">
               <div class="quiz-progress-info">
-                <span>РџРёС‚Р°РЅРЅСЏ <strong id="current-q-num">1</strong> Р· <span id="total-q-num">6</span></span>
-                <span class="quiz-score-badge">Р Р°С…СѓРЅРѕРє: <strong id="live-score">0</strong></span>
+                <span>Питання <strong id="current-q-num">1</strong> з <span id="total-q-num">6</span></span>
+                <span class="quiz-score-badge">Рахунок: <strong id="live-score">0</strong></span>
               </div>
               <div class="progress-track">
                 <div class="progress-fill" id="quiz-progress-fill" style="width: 16%;"></div>
@@ -323,7 +483,7 @@
 
             <div class="quiz-card">
               <h4 class="quiz-question-text" id="quiz-question-text">
-                РџРёС‚Р°РЅРЅСЏ Р·Р°РІР°РЅС‚Р°Р¶СѓС”С‚СЊСЃСЏ...
+                Питання завантажується...
               </h4>
 
               <div class="quiz-options-list" id="quiz-options-list">
@@ -332,13 +492,13 @@
 
               <!-- Explanation Alert (Appears after answer) -->
               <div class="quiz-explanation-box hidden" id="quiz-explanation-box">
-                <div class="exp-icon" id="exp-icon">рџ’Ў</div>
+                <div class="exp-icon" id="exp-icon">💡</div>
                 <div class="exp-text" id="exp-text"></div>
               </div>
 
               <div class="quiz-footer-actions">
                 <button class="btn btn-primary hidden" id="next-q-btn">
-                  <span>РќР°СЃС‚СѓРїРЅРµ РїРёС‚Р°РЅРЅСЏ вћњ</span>
+                  <span>Наступне питання ➜</span>
                 </button>
               </div>
             </div>
@@ -346,9 +506,9 @@
 
           <!-- Quiz Finish View -->
           <div class="quiz-finish-view hidden" id="quiz-finish-view">
-            <div class="finish-icon" id="finish-icon">рџЋ‰</div>
-            <h3 class="finish-title" id="finish-title">Р§СѓРґРѕРІР° СЂРѕР±РѕС‚Р°!</h3>
-            <p class="finish-subtitle" id="finish-subtitle">РўРё СѓСЃРїС–С€РЅРѕ РїСЂРѕР№С€РѕРІ РєРІРµСЃС‚ Р· С‚РµРјРё В«РҐС–РјС–С‡РЅРёР№ Р·РІ'СЏР·РѕРєВ»!</p>
+            <div class="finish-icon" id="finish-icon">🎉</div>
+            <h3 class="finish-title" id="finish-title">Чудова робота!</h3>
+            <p class="finish-subtitle" id="finish-subtitle">Ти успішно пройшов квест з теми «Хімічний зв'язок»!</p>
 
             <div class="score-circle-container">
               <div class="score-circle">
@@ -358,16 +518,16 @@
             </div>
 
             <div class="rank-badge-box" id="rank-badge-box">
-              <span class="rank-title">РўРІРѕС” Р·РІР°РЅРЅСЏ:</span>
-              <strong class="rank-name" id="rank-name">РњР°РіС–СЃС‚СЂ РҐС–РјС–С— рџҐ‡</strong>
+              <span class="rank-title">Твоє звання:</span>
+              <strong class="rank-name" id="rank-name">Магістр Хімічного Зв'язку 🥇</strong>
             </div>
 
             <div class="finish-actions">
               <button class="btn btn-primary" id="restart-quiz-btn">
-                <span>РџСЂРѕР№С‚Рё С‰Рµ СЂР°Р·</span>
+                <span>Пройти ще раз</span>
               </button>
-              <a href="#periodic-section" class="btn btn-secondary">
-                <span>РџРѕРІРµСЂРЅСѓС‚РёСЃСЊ РґРѕ С‚Р°Р±Р»РёС†С–</span>
+              <a href="#bonds-section" class="btn btn-secondary">
+                <span>Повернутись до конструктора зв'язку</span>
               </a>
             </div>
           </div>
@@ -383,15 +543,16 @@
         <div class="footer-brand">
           Chem<span class="accent-text">Pulse</span>
         </div>
-        <p>Р†РЅС‚РµСЂР°РєС‚РёРІРЅРёР№ С†РёС„СЂРѕРІРёР№ РѕСЃРІС–С‚РЅС–Р№ РїСЂРѕСЃС‚С–СЂ В· РҐС–РјС–С‡РЅРёР№ Р·РІ'СЏР·РѕРє В· 11 РєР»Р°СЃ.</p>
+        <p>Інтерактивний цифровий освітній простір з хімії · Хімічний зв'язок · 11 клас.</p>
       </div>
       <div class="footer-links">
-        <a href="#hero">Р’РіРѕСЂСѓ</a>
-        <a href="#periodic-section">Р‘СѓРґРѕРІР° Р°С‚РѕРјС–РІ</a>
-        <a href="#quiz-section">Р’С–РєС‚РѕСЂРёРЅР°</a>
+        <a href="#hero">Вгору</a>
+        <a href="#bonds-section">Хімічний зв'язок</a>
+        <a href="#periodic-section">Будова атомів</a>
+        <a href="#quiz-section">Вікторина</a>
       </div>
       <div class="footer-copy">
-        РЎС‚РІРѕСЂРµРЅРѕ РґР»СЏ РЅР°РІС‡Р°Р»СЊРЅРѕРіРѕ РїСЂРѕРµРєС‚Сѓ Р· С…С–РјС–С— вЂў РџСЂР°С†СЋС” РЅР° GitHub Pages
+        Створено для навчального проєкту з хімії • Працює на GitHub Pages
       </div>
     </div>
   </footer>
@@ -400,11 +561,11 @@
   <canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
 
   <!-- Scripts -->
-  <script src="js/data.js?v=4"></script>
-  <script src="js/audio.js?v=4"></script>
-  <script src="js/bohr-model.js?v=4"></script>
-  <script src="js/quiz.js?v=4"></script>
-  <script src="js/app.js?v=4"></script>
+  <script src="js/data.js?v=6"></script>
+  <script src="js/audio.js?v=6"></script>
+  <script src="js/bohr-model.js?v=6"></script>
+  <script src="js/bond-simulator.js?v=6"></script>
+  <script src="js/quiz.js?v=6"></script>
+  <script src="js/app.js?v=6"></script>
 </body>
 </html>
-

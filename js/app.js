@@ -1,6 +1,7 @@
 /**
  * ChemPulse — Main Application Controller
- * Focused specifically on Module 1 (Periodic Table & Atomic Trends) and Quiz.
+ * Optimized for Topic: "Хімічний зв'язок" (11 клас)
+ * Coordinates Hero canvas, Bond Simulator Arena, Periodic Table & Bohr Model, and Quiz.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,20 +11,36 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeInspectorBtn = document.getElementById('close-inspector-btn');
   const closeInspectorActionBtn = document.getElementById('close-inspector-action-btn');
   const inspectorBackdrop = document.getElementById('inspector-backdrop');
+  const useInBondBtn = document.getElementById('use-in-bond-btn');
+
   const trendBanner = document.getElementById('trend-banner');
   const trendBannerText = document.getElementById('trend-banner-text');
   const trendButtons = document.querySelectorAll('.trend-btn');
   const searchInput = document.getElementById('element-search');
   const categoryFilter = document.getElementById('category-filter');
 
+  // Bond Simulator DOM Elements
+  const select1 = document.getElementById('atom1-select');
+  const select2 = document.getElementById('atom2-select');
+  const badge1 = document.getElementById('atom1-badge');
+  const badge2 = document.getElementById('atom2-badge');
+  const enVal1 = document.getElementById('atom1-en-val');
+  const enVal2 = document.getElementById('atom2-en-val');
+  const typeLabel1 = document.getElementById('atom1-type-label');
+  const typeLabel2 = document.getElementById('atom2-type-label');
+  const animateBondBtn = document.getElementById('animate-bond-btn');
+  const presetBtns = document.querySelectorAll('.preset-btn');
+
   let currentTrend = 'none';
+  let currentlyInspectedElement = null;
 
   // 2. Initialize Visualizers & Engines
-  const heroVisualizer = new HeroAtomVisualizer('hero-atom-canvas');
-  const bohrVisualizer = new BohrVisualizer('bohr-canvas');
-  const chemQuiz = new ChemQuiz();
+  const heroVisualizer = typeof HeroAtomVisualizer !== 'undefined' ? new HeroAtomVisualizer('hero-atom-canvas') : null;
+  const bohrVisualizer = typeof BohrVisualizer !== 'undefined' ? new BohrVisualizer('bohr-canvas') : null;
+  const bondSimulator = typeof BondSimulator !== 'undefined' ? new BondSimulator('bond-canvas') : null;
+  const chemQuiz = typeof ChemQuiz !== 'undefined' ? new ChemQuiz() : null;
 
-  // 3. Helper: Category Translation
+  // 3. Category Translation Helper
   function getCategoryNameUk(cat) {
     const dict = {
       'alkali': 'Лужний метал',
@@ -32,13 +49,130 @@ document.addEventListener('DOMContentLoaded', () => {
       'post-transition': 'Постперехідний метал',
       'metalloid': 'Напівметал',
       'nonmetal': 'Реактивний неметал',
-      'halogen': 'Галоген',
+      'halogen': 'Галоген (неметал)',
       'noble': 'Благородний (інертний) газ'
     };
     return dict[cat] || cat;
   }
 
-  // 4. Render Periodic Table Grid
+  function isMetalCategory(cat) {
+    return ['alkali', 'alkaline-earth', 'transition', 'post-transition'].includes(cat);
+  }
+
+  // 4. Bond Simulator Initialization & Logic
+  function initBondSimulator() {
+    if (!select1 || !select2 || typeof ELEMENTS_DATA === 'undefined') return;
+
+    select1.innerHTML = '';
+    select2.innerHTML = '';
+
+    ELEMENTS_DATA.forEach(el => {
+      const opt1 = document.createElement('option');
+      opt1.value = el.symbol;
+      opt1.textContent = `${el.number}. ${el.symbol} — ${el.name} (χ = ${el.en > 0 ? el.en.toFixed(2) : '—'})`;
+      select1.appendChild(opt1);
+
+      const opt2 = document.createElement('option');
+      opt2.value = el.symbol;
+      opt2.textContent = `${el.number}. ${el.symbol} — ${el.name} (χ = ${el.en > 0 ? el.en.toFixed(2) : '—'})`;
+      select2.appendChild(opt2);
+    });
+
+    // Default selection: Na + Cl (NaCl)
+    select1.value = 'Na';
+    select2.value = 'Cl';
+    updateBondFromSelects('nacl');
+
+    // Change listeners
+    select1.addEventListener('change', () => {
+      updateBondFromSelects();
+      if (window.soundManager) window.soundManager.playClick();
+    });
+
+    select2.addEventListener('change', () => {
+      updateBondFromSelects();
+      if (window.soundManager) window.soundManager.playClick();
+    });
+
+    // Animate Synthesis button
+    if (animateBondBtn && bondSimulator) {
+      animateBondBtn.addEventListener('click', () => {
+        bondSimulator.triggerSynthesis();
+        if (window.soundManager) window.soundManager.playBond();
+      });
+    }
+
+    // Presets buttons
+    presetBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const presetKey = btn.getAttribute('data-preset');
+        if (typeof BOND_PRESETS === 'undefined' || !BOND_PRESETS[presetKey]) return;
+
+        presetBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const preset = BOND_PRESETS[presetKey];
+        select1.value = preset.atom1;
+        select2.value = preset.atom2;
+
+        updateBondFromSelects(presetKey);
+        if (window.soundManager) window.soundManager.playClick();
+      });
+    });
+  }
+
+  function updateBondFromSelects(forcedPresetKey = null) {
+    if (!select1 || !select2 || typeof ELEMENTS_DATA === 'undefined') return;
+
+    const sym1 = select1.value;
+    const sym2 = select2.value;
+
+    const el1 = ELEMENTS_DATA.find(e => e.symbol === sym1);
+    const el2 = ELEMENTS_DATA.find(e => e.symbol === sym2);
+    if (!el1 || !el2) return;
+
+    // Update atom 1 badges
+    if (badge1) badge1.textContent = el1.symbol;
+    if (enVal1) enVal1.textContent = el1.en > 0 ? el1.en.toFixed(2) : '—';
+    if (typeLabel1) {
+      const isM1 = isMetalCategory(el1.category);
+      typeLabel1.textContent = el1.category === 'noble' ? 'Інертний' : (isM1 ? 'Метал' : 'Неметал');
+      typeLabel1.className = `type-pill ${isM1 ? 'metal' : (el1.category === 'noble' ? 'noble' : 'nonmetal')}`;
+    }
+
+    // Update atom 2 badges
+    if (badge2) badge2.textContent = el2.symbol;
+    if (enVal2) enVal2.textContent = el2.en > 0 ? el2.en.toFixed(2) : '—';
+    if (typeLabel2) {
+      const isM2 = isMetalCategory(el2.category);
+      typeLabel2.textContent = el2.category === 'noble' ? 'Інертний' : (isM2 ? 'Метал' : 'Неметал');
+      typeLabel2.className = `type-pill ${isM2 ? 'metal' : (el2.category === 'noble' ? 'noble' : 'nonmetal')}`;
+    }
+
+    // Determine preset or dynamic calculation
+    let preset = null;
+    if (forcedPresetKey && typeof BOND_PRESETS !== 'undefined') {
+      preset = BOND_PRESETS[forcedPresetKey];
+    } else if (typeof BOND_PRESETS !== 'undefined') {
+      const foundKey = Object.keys(BOND_PRESETS).find(key => {
+        const p = BOND_PRESETS[key];
+        return (p.atom1 === el1.symbol && p.atom2 === el2.symbol) ||
+               (p.atom1 === el2.symbol && p.atom2 === el1.symbol);
+      });
+      if (foundKey) {
+        preset = BOND_PRESETS[foundKey];
+        presetBtns.forEach(b => b.classList.toggle('active', b.getAttribute('data-preset') === foundKey));
+      } else {
+        presetBtns.forEach(b => b.classList.remove('active'));
+      }
+    }
+
+    if (bondSimulator) {
+      bondSimulator.setBond(el1, el2, preset);
+    }
+  }
+
+  // 5. Render Periodic Table Grid
   function renderPeriodicTable(elements) {
     if (!periodicGrid) return;
     periodicGrid.innerHTML = '';
@@ -53,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
       card.dataset.radius = el.radius;
       card.dataset.valence = el.valence;
 
-      // Periodic Grid Coordinates placement
+      // Periodic Coordinates
       card.style.gridColumn = el.group;
       card.style.gridRow = el.period;
 
@@ -77,8 +211,10 @@ document.addEventListener('DOMContentLoaded', () => {
     applyTrendVisualization(currentTrend);
   }
 
-  // 5. Element Inspector Modal
+  // 6. Element Inspector Modal
   function openElementInspector(el) {
+    currentlyInspectedElement = el;
+
     const atomicNumEl = document.getElementById('info-atomic-number');
     const symbolEl = document.getElementById('info-symbol');
     const nameEl = document.getElementById('info-name');
@@ -106,13 +242,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (factEl) factEl.textContent = el.fact;
     if (bohrTitleEl) bohrTitleEl.textContent = `${el.symbol} — ${el.name}`;
 
-    // Shells breakdown (K, L, M, N...)
+    // Shells breakdown
     const shellNames = ['K', 'L', 'M', 'N', 'O', 'P'];
     const shellsText = el.shells.map((count, i) => `${shellNames[i]}: ${count}`).join(' • ');
     if (shellsEl) shellsEl.innerHTML = `Електронні шари: <span>${shellsText}</span>`;
 
     // Start Bohr model rendering
-    bohrVisualizer.setElement(el);
+    if (bohrVisualizer) {
+      bohrVisualizer.setElement(el);
+    }
 
     if (modal) {
       modal.classList.add('active');
@@ -125,14 +263,44 @@ document.addEventListener('DOMContentLoaded', () => {
       modal.classList.remove('active');
       modal.setAttribute('aria-hidden', 'true');
     }
-    bohrVisualizer.stop();
+    if (bohrVisualizer) {
+      bohrVisualizer.stop();
+    }
   }
 
   if (closeInspectorBtn) closeInspectorBtn.addEventListener('click', closeInspector);
   if (closeInspectorActionBtn) closeInspectorActionBtn.addEventListener('click', closeInspector);
   if (inspectorBackdrop) inspectorBackdrop.addEventListener('click', closeInspector);
 
-  // 6. Trend Visualizer Toggles
+  // Use in Bond Simulator button inside Modal
+  if (useInBondBtn) {
+    useInBondBtn.addEventListener('click', () => {
+      if (!currentlyInspectedElement || !select1 || !select2) return;
+
+      closeInspector();
+
+      // Set atom 1 to inspected element
+      select1.value = currentlyInspectedElement.symbol;
+
+      // Smart complementary atom for atom 2
+      if (select1.value === select2.value && currentlyInspectedElement.symbol !== 'O') {
+        const isM = isMetalCategory(currentlyInspectedElement.category);
+        select2.value = isM ? 'Cl' : 'Na';
+      }
+
+      updateBondFromSelects();
+
+      // Smooth scroll to bonds section
+      const bondsSection = document.getElementById('bonds-section');
+      if (bondsSection) {
+        bondsSection.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      if (window.soundManager) window.soundManager.playSuccess();
+    });
+  }
+
+  // 7. Trend Visualizer Toggles
   trendButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       trendButtons.forEach(b => b.classList.remove('active'));
@@ -161,7 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (trend === 'electronegativity') {
       if (trendBannerText) {
-        trendBannerText.innerHTML = `<strong>📈 Електронегативність (χ):</strong> Зростає зліва направо у періодах та знизу вгору у головних підгрупах. Найвища у Флуору (<strong>3.98</strong>), найнижча у важких лужних металів (Францій <strong>0.7</strong>, Цезій <strong>0.79</strong>). Інертні гази мають нульову або невизначену електронегативність.`;
+        trendBannerText.innerHTML = `<strong>📈 Електронегативність (χ):</strong> Зростає зліва направо у періодах та знизу вгору у головних підгрупах. Найвища у Флуору (<strong>3.98</strong>), найнижча у Францію (<strong>0.7</strong>). Різниця електронегативностей (Δχ) між елементами безпосередньо визначає тип зв'язку: при Δχ > 1.7 виникає йонний зв'язок, при 0.4 < Δχ ≤ 1.7 — ковалентний полярний, а при Δχ ≤ 0.4 — ковалентний неполярний.`;
       }
 
       cards.forEach(card => {
@@ -177,20 +345,9 @@ document.addEventListener('DOMContentLoaded', () => {
           card.style.borderColor = `rgba(${r}, ${g}, ${b}, 0.7)`;
         }
       });
-    } else if (trend === 'radius') {
-      if (trendBannerText) {
-        trendBannerText.innerHTML = `<strong>🌐 Атомний радіус (pm):</strong> Збільшується зверху вниз по групах (зростає число електронних шарів) та справа наліво по періодах (зменшується заряд ядра, що слабше стягує електрони). Найбільші радіуси мають лужні метали (Калій, Цезій), а найменші — Неон, Гелій та Флуор.`;
-      }
-
-      cards.forEach(card => {
-        const rad = parseFloat(card.dataset.radius) || 50;
-        const pct = Math.min(1, Math.max(0, (rad - 30) / (250 - 30)));
-        card.style.background = `rgba(59, 130, 246, ${0.1 + pct * 0.4})`;
-        card.style.borderColor = `rgba(59, 130, 246, ${0.3 + pct * 0.5})`;
-      });
     } else if (trend === 'valence') {
       if (trendBannerText) {
-        trendBannerText.innerHTML = `<strong>⚡ Валентні електрони:</strong> Кількість електронів на зовнішньому енергетичному рівні для елементів головних підгруп дорівнює <strong>номеру групи</strong> (від 1 e⁻ у лужних металів до 8 e⁻ у благородних газів). Саме вони беруть участь в утворенні хімічних зв'язків!`;
+        trendBannerText.innerHTML = `<strong>⚡ Валентні електрони (Правило октету):</strong> Кількість електронів на зовнішньому енергетичному рівні дорівнює номеру групи головних підгруп. Атоми прагнуть завершити свій рівень до 8 електронів (або 2 для H), утворюючи спільні електронні пари або віддаючи/приєднуючи електрони.`;
       }
 
       cards.forEach(card => {
@@ -199,10 +356,21 @@ document.addEventListener('DOMContentLoaded', () => {
         card.style.background = `rgba(16, 185, 129, ${0.1 + pct * 0.4})`;
         card.style.borderColor = `rgba(16, 185, 129, ${0.3 + pct * 0.5})`;
       });
+    } else if (trend === 'radius') {
+      if (trendBannerText) {
+        trendBannerText.innerHTML = `<strong>🌐 Атомний радіус (pm):</strong> Збільшується зверху вниз по групах (зростає число електронних шарів) та справа наліво по періодах (зменшується заряд ядра). Чим менший радіус неметалу, тим сильніше він притягує чужі електрони (вища ЕН).`;
+      }
+
+      cards.forEach(card => {
+        const rad = parseFloat(card.dataset.radius) || 50;
+        const pct = Math.min(1, Math.max(0, (rad - 30) / (250 - 30)));
+        card.style.background = `rgba(59, 130, 246, ${0.1 + pct * 0.4})`;
+        card.style.borderColor = `rgba(59, 130, 246, ${0.3 + pct * 0.5})`;
+      });
     }
   }
 
-  // 7. Search & Category Filter
+  // 8. Search & Category Filter
   function filterElements() {
     const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
     const category = categoryFilter ? categoryFilter.value : 'all';
@@ -211,7 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cards.forEach(card => {
       const num = card.dataset.number;
       const sym = card.dataset.symbol.toLowerCase();
-      const elData = ELEMENTS_DATA.find(e => e.number == num);
+      const elData = typeof ELEMENTS_DATA !== 'undefined' ? ELEMENTS_DATA.find(e => e.number == num) : null;
       const name = elData ? elData.name.toLowerCase() : '';
       const cat = card.dataset.category;
 
@@ -238,7 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.soundManager) window.soundManager.playClick();
   });
 
-  // 8. Smooth Section Scrolling Highlight
+  // 9. Smooth Section Scrolling Highlight
   const sections = document.querySelectorAll('section[id]');
   window.addEventListener('scroll', () => {
     const scrollY = window.pageYOffset + 120;
@@ -255,6 +423,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 9. Initial Render
-  renderPeriodicTable(ELEMENTS_DATA);
+  // 10. Initial Runs
+  if (typeof ELEMENTS_DATA !== 'undefined') {
+    renderPeriodicTable(ELEMENTS_DATA);
+  }
+  initBondSimulator();
 });
