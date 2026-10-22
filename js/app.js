@@ -1,33 +1,26 @@
 /**
  * ChemPulse — Main Application Controller
- * Wires together UI components, periodic grid, bond simulator, AI helper, and modals.
+ * Focused specifically on Module 1 (Periodic Table & Atomic Trends) and Quiz.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Safe DOM References
+  // 1. DOM References
   const periodicGrid = document.getElementById('periodic-table-grid');
   const modal = document.getElementById('element-modal');
   const closeInspectorBtn = document.getElementById('close-inspector-btn');
+  const closeInspectorActionBtn = document.getElementById('close-inspector-action-btn');
   const inspectorBackdrop = document.getElementById('inspector-backdrop');
-  const sendToBondBtn = document.getElementById('send-to-bond-btn');
   const trendBanner = document.getElementById('trend-banner');
   const trendBannerText = document.getElementById('trend-banner-text');
   const trendButtons = document.querySelectorAll('.trend-btn');
   const searchInput = document.getElementById('element-search');
   const categoryFilter = document.getElementById('category-filter');
-  const select1 = document.getElementById('atom1-select');
-  const select2 = document.getElementById('atom2-select');
-  const animateBondBtn = document.getElementById('animate-bond-btn');
-  const presetBtns = document.querySelectorAll('.preset-btn');
 
-  let currentInspectedElement = ELEMENTS_DATA[0]; // Default: Hydrogen
   let currentTrend = 'none';
 
   // 2. Initialize Visualizers & Engines
   const heroVisualizer = new HeroAtomVisualizer('hero-atom-canvas');
   const bohrVisualizer = new BohrVisualizer('bohr-canvas');
-  const bondSimulator = new BondSimulator('bond-canvas');
-  const chemikusAI = new ChemikusAI('chat-messages', 'chat-input', 'chat-form');
   const chemQuiz = new ChemQuiz();
 
   // 3. Helper: Category Translation
@@ -86,8 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 5. Element Inspector Modal
   function openElementInspector(el) {
-    currentInspectedElement = el;
-
     const atomicNumEl = document.getElementById('info-atomic-number');
     const symbolEl = document.getElementById('info-symbol');
     const nameEl = document.getElementById('info-name');
@@ -138,23 +129,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (closeInspectorBtn) closeInspectorBtn.addEventListener('click', closeInspector);
+  if (closeInspectorActionBtn) closeInspectorActionBtn.addEventListener('click', closeInspector);
   if (inspectorBackdrop) inspectorBackdrop.addEventListener('click', closeInspector);
-
-  // Send element from inspector directly to bond constructor
-  if (sendToBondBtn) {
-    sendToBondBtn.addEventListener('click', () => {
-      closeInspector();
-      if (select1) {
-        select1.value = currentInspectedElement.symbol;
-        updateBondFromSelects();
-      }
-      const bondSec = document.getElementById('bonds-section');
-      if (bondSec) {
-        bondSec.scrollIntoView({ behavior: 'smooth' });
-      }
-      if (window.soundManager) window.soundManager.playBond();
-    });
-  }
 
   // 6. Trend Visualizer Toggles
   trendButtons.forEach(btn => {
@@ -262,120 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.soundManager) window.soundManager.playClick();
   });
 
-  // 8. Bond Simulator Dropdowns & Presets
-  function populateBondDropdowns() {
-    if (!select1 || !select2) return;
-    select1.innerHTML = '';
-    select2.innerHTML = '';
-
-    ELEMENTS_DATA.forEach(el => {
-      const opt1 = document.createElement('option');
-      opt1.value = el.symbol;
-      opt1.textContent = `${el.symbol} — ${el.name} (χ=${el.en > 0 ? el.en.toFixed(1) : '—'})`;
-      select1.appendChild(opt1);
-
-      const opt2 = document.createElement('option');
-      opt2.value = el.symbol;
-      opt2.textContent = `${el.symbol} — ${el.name} (χ=${el.en > 0 ? el.en.toFixed(1) : '—'})`;
-      select2.appendChild(opt2);
-    });
-
-    // Defaults: Na & Cl
-    select1.value = 'Na';
-    select2.value = 'Cl';
-    updateBondFromSelects();
-  }
-
-  function updateBondFromSelects() {
-    if (!select1 || !select2) return;
-    const sym1 = select1.value;
-    const sym2 = select2.value;
-    const el1 = ELEMENTS_DATA.find(e => e.symbol === sym1);
-    const el2 = ELEMENTS_DATA.find(e => e.symbol === sym2);
-
-    if (!el1 || !el2) return;
-
-    // Update pod preview badges
-    const b1 = document.getElementById('atom1-badge');
-    const b2 = document.getElementById('atom2-badge');
-    const en1 = document.getElementById('atom1-en-val');
-    const en2 = document.getElementById('atom2-en-val');
-    const t1 = document.getElementById('atom1-type-label');
-    const t2 = document.getElementById('atom2-type-label');
-
-    if (b1) b1.textContent = el1.symbol;
-    if (b2) b2.textContent = el2.symbol;
-    if (en1) en1.textContent = el1.en > 0 ? el1.en.toFixed(2) : '—';
-    if (en2) en2.textContent = el2.en > 0 ? el2.en.toFixed(2) : '—';
-
-    const isMetal1 = ["alkali", "alkaline-earth", "transition", "post-transition"].includes(el1.category);
-    const isMetal2 = ["alkali", "alkaline-earth", "transition", "post-transition"].includes(el2.category);
-
-    if (t1) {
-      t1.textContent = isMetal1 ? 'Метал' : 'Неметал';
-      t1.className = `type-pill ${isMetal1 ? 'metal' : 'nonmetal'}`;
-    }
-    if (t2) {
-      t2.textContent = isMetal2 ? 'Метал' : 'Неметал';
-      t2.className = `type-pill ${isMetal2 ? 'metal' : 'nonmetal'}`;
-    }
-
-    // Check if preset matches
-    const presetKey = Object.keys(BOND_PRESETS).find(key => {
-      const p = BOND_PRESETS[key];
-      return (p.atom1 === el1.symbol && p.atom2 === el2.symbol) ||
-             (p.atom1 === el2.symbol && p.atom2 === el1.symbol);
-    });
-
-    if (presetKey) {
-      bondSimulator.setBond(el1, el2, BOND_PRESETS[presetKey]);
-      presetBtns.forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.preset === presetKey);
-      });
-    } else {
-      bondSimulator.setBond(el1, el2);
-      presetBtns.forEach(btn => btn.classList.remove('active'));
-    }
-  }
-
-  if (select1) select1.addEventListener('change', () => {
-    updateBondFromSelects();
-    if (window.soundManager) window.soundManager.playClick();
-  });
-
-  if (select2) select2.addEventListener('change', () => {
-    updateBondFromSelects();
-    if (window.soundManager) window.soundManager.playClick();
-  });
-
-  if (animateBondBtn) {
-    animateBondBtn.addEventListener('click', () => {
-      bondSimulator.triggerSynthesis();
-    });
-  }
-
-  // Presets
-  presetBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const key = btn.getAttribute('data-preset');
-      const preset = BOND_PRESETS[key];
-      if (!preset) return;
-
-      presetBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const el1 = ELEMENTS_DATA.find(e => e.symbol === preset.atom1);
-      const el2 = ELEMENTS_DATA.find(e => e.symbol === preset.atom2);
-
-      if (select1 && select2 && el1 && el2) {
-        select1.value = el1.symbol;
-        select2.value = el2.symbol;
-        updateBondFromSelects();
-      }
-    });
-  });
-
-  // 9. Smooth Section Scrolling Highlight
+  // 8. Smooth Section Scrolling Highlight
   const sections = document.querySelectorAll('section[id]');
   window.addEventListener('scroll', () => {
     const scrollY = window.pageYOffset + 120;
@@ -392,7 +255,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 10. Initial Render
+  // 9. Initial Render
   renderPeriodicTable(ELEMENTS_DATA);
-  populateBondDropdowns();
 });
