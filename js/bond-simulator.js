@@ -28,7 +28,19 @@ class BondSimulator {
       });
     }
 
+    this.resizeCanvas();
+    window.addEventListener('resize', () => this.resizeCanvas());
+
     this.animate();
+  }
+
+  resizeCanvas() {
+    if (!this.canvas) return;
+    const rect = this.canvas.getBoundingClientRect();
+    if (rect.width > 0 && Math.abs(this.canvas.width - rect.width) > 2) {
+      this.canvas.width = rect.width;
+      this.canvas.height = rect.height || 380;
+    }
   }
 
   setBond(atom1, atom2, presetData = null) {
@@ -112,6 +124,7 @@ class BondSimulator {
 
   render() {
     if (!this.ctx || !this.atom1 || !this.atom2) return;
+    this.resizeCanvas();
 
     const w = this.canvas.width;
     const h = this.canvas.height;
@@ -158,9 +171,9 @@ class BondSimulator {
 
       // Coulomb attraction label
       this.ctx.fillStyle = `rgba(0, 242, 254, ${alpha})`;
-      this.ctx.font = '12px Outfit';
+      this.ctx.font = '13px Outfit';
       this.ctx.textAlign = 'center';
-      this.ctx.fillText("Кулонівське електростатичне притягання (+ 🧲 -)", w / 2, cy - 35);
+      this.ctx.fillText("Кулонівське електростатичне притягання (+ 🧲 -)", w / 2, Math.max(30, cy - 65));
     }
 
     // Atom 1
@@ -282,9 +295,9 @@ class BondSimulator {
 
     // Symmetrical label
     this.ctx.fillStyle = 'rgba(16, 185, 129, 0.9)';
-    this.ctx.font = '12px Outfit';
+    this.ctx.font = '13px Outfit';
     this.ctx.textAlign = 'center';
-    this.ctx.fillText("Ідеально симетрична електронна хмара (Δχ = 0)", midX, cy - 50);
+    this.ctx.fillText("Ідеально симетрична електронна хмара (Δχ = 0)", midX, Math.max(30, cy - 65));
   }
 
   // 4. METALLIC BOND VISUALIZATION (Lattice & electron sea)

@@ -160,10 +160,16 @@ h1, h2, h3, h4, h5 {
 }
 
 /* Common Layout Containers */
+html {
+  scroll-behavior: smooth;
+}
+
+section[id],
 .section {
   position: relative;
   z-index: 1;
   padding: 90px 24px;
+  scroll-margin-top: 105px;
 }
 
 .section-container {
@@ -174,7 +180,7 @@ h1, h2, h3, h4, h5 {
 .section-header {
   text-align: center;
   max-width: 820px;
-  margin: 0 auto 48px auto;
+  margin: 0 auto 42px auto;
 }
 
 .section-pill {
@@ -188,18 +194,21 @@ h1, h2, h3, h4, h5 {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .section-title {
   font-size: 2.5rem;
   font-weight: 800;
-  margin-bottom: 16px;
+  line-height: 1.25;
+  margin-bottom: 18px;
   color: #fff;
+  word-break: break-word;
 }
 
 .section-desc {
   font-size: 1.125rem;
+  line-height: 1.6;
   color: var(--text-muted);
 }
 
@@ -1312,34 +1321,45 @@ h1, h2, h3, h4, h5 {
 
 .stage-overlay-labels {
   position: absolute;
-  bottom: 16px;
-  left: 24px;
-  right: 24px;
+  bottom: 12px;
+  left: 16px;
+  right: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
   pointer-events: none;
+  z-index: 5;
 }
 
 .stage-label-left, .stage-label-right {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: #fff;
-  background: rgba(0, 0, 0, 0.5);
-  padding: 6px 16px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 6px 14px;
   border-radius: var(--radius-full);
   border: 1px solid var(--border-glass);
+  white-space: nowrap;
+  max-width: 33%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .stage-label-center {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 800;
   color: var(--cyan);
   background: rgba(0, 242, 254, 0.15);
-  padding: 6px 18px;
+  padding: 6px 16px;
   border-radius: var(--radius-full);
   border: 1px solid var(--cyan);
   box-shadow: 0 0 14px var(--cyan-glow);
+  white-space: nowrap;
+  max-width: 40%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
 }
 
 /* Result Panel */
@@ -2553,6 +2573,101 @@ h1, h2, h3, h4, h5 {
 
   .finish-actions .btn {
     width: 100%;
+  }
+
+  /* Bond Simulator Responsive */
+  .preset-selector-bar {
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .preset-buttons {
+    gap: 6px;
+    width: 100%;
+  }
+
+  .preset-btn {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    flex: 1 1 calc(50% - 6px);
+    text-align: center;
+  }
+
+  .bond-arena {
+    padding: 16px 12px;
+    margin-bottom: 32px;
+  }
+
+  .arena-top-controls {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .arena-center-indicator {
+    order: 2;
+    margin: 4px 0;
+  }
+
+  #atom2-card {
+    order: 3;
+  }
+
+  .atom-select-card {
+    padding: 14px;
+  }
+
+  .select-with-preview {
+    gap: 10px;
+  }
+
+  .element-dropdown {
+    font-size: 0.85rem;
+    padding: 8px 10px;
+  }
+
+  .atom-badge-preview {
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
+    min-width: 42px;
+  }
+
+  .bond-stage {
+    height: 320px;
+    margin-bottom: 20px;
+  }
+
+  .stage-overlay-labels {
+    position: static;
+    padding: 10px 12px;
+    background: rgba(0, 0, 0, 0.45);
+    border-top: 1px solid var(--border-glass);
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .stage-label-left, .stage-label-right, .stage-label-center {
+    max-width: 100%;
+    font-size: 0.78rem;
+    padding: 4px 10px;
+  }
+
+  .result-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .result-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .lewis-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
 }
 
