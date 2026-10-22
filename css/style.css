@@ -563,11 +563,12 @@ section[id],
 }
 
 .stat-card {
-  padding: 16px 22px;
+  padding: 14px 20px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-md);
-  min-width: 130px;
+  min-width: 120px;
+  text-align: center;
 }
 
 .stat-num {
@@ -575,11 +576,14 @@ section[id],
   font-weight: 800;
   color: #fff;
   font-family: var(--font-mono);
+  margin-bottom: 2px;
 }
 
 .stat-label {
   font-size: 0.85rem;
   color: var(--text-muted);
+  line-height: 1.35;
+  white-space: normal;
 }
 
 /* Hero Visual Canvas & Floating Cards */
@@ -2330,7 +2334,7 @@ section[id],
   .hero-stats-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
+    gap: 8px;
     width: 100%;
   }
 
@@ -2338,15 +2342,23 @@ section[id],
     min-width: 0;
     padding: 10px 4px;
     border-radius: var(--radius-sm);
+    text-align: center;
+    overflow: hidden;
   }
 
   .stat-num {
-    font-size: 1.3rem;
+    font-size: 1.35rem;
+    line-height: 1.2;
+    margin-bottom: 2px;
   }
 
   .stat-label {
-    font-size: 0.65rem;
-    white-space: nowrap;
+    font-size: 0.72rem;
+    line-height: 1.25;
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: break-word;
+    text-align: center;
   }
 
   .atom-hero-container {
